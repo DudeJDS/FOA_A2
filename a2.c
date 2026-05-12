@@ -187,26 +187,78 @@ void process_line(registry_t *reg, char *line) {
  *==========================================================*/
 
 /*====================== STAGE  0 ======================== */
+/* a BST (binary search tree) node contains 
+        (1) A pointer to an item
+        (2) Left & Right child pointers 
+
+    malloc(...) creates memory that persists after a function is ends
+    e.g. item_t *item = malloc(sizeof(item_t)); => give me enough memory to store one item "item_t"
+    AND return a pointer to it. 
+    
+    Arrays of pointers:
+    bst_node_t *left_arr[NUM_ITEM_PROPERTIES] => is an array of POINTERS. NOT a pointer to an array*/
 
 bst_node_t *create_bst_node(item_t *item) {
     /* TODO: Allocate space on the heap for a node and return a pointer to it */
-    return NULL;
+    bst_node_t *node = malloc(sizeof(*node)); //
+    assert(node != NULL);
+
+    // Attach item
+    node->item = item; // NOT COPYING! Just storing pointer to item
+
+    // Set all children to NULL
+    for (int i = 0; i < NUM_ITEM_PROPERTIES; i++){
+        node->left_arr[i] = NULL;
+        node->right_arr[i] = NULL;
+    }
+
+    // Finally return node
+    return node;
 }
 
 void free_bst_node(bst_node_t *bst_node) {
-    /* TODO: Free a bst node and attached heap allocated memory. */
+    /* Because we want to free node (which has item in it which owns heap strings) we first free item using our free_item function */
+    free_item(bst_node->item);
+    free(bst_node);
 }
 
 item_t *create_item(int uid, char *owner, char *description, char *location,
                     status_t status) {
-    /* TODO: Allocate space on the heap for an item and return a pointer to it */
-    return NULL;
+    // We need the memory for our item_t first
+    item_t *item = malloc(sizeof(item_t)); // Now item points to an empty struct in heap memory
+
+    // Check malloc worked s.t. if not (i.e. malloc() return NULL) segmentation fault (and other problems) occur
+    assert(item != NULL);
+
+    /* Remember here, item points to the address of the struct. To access the struct we must follow the pointer and THEN access the field
+    (*item).uid but item->uid does this exact thing and is more read-able and write-able 
+    thus, for non-string/"normal" values*/
+    item->uid = uid;
+    item->status = status; 
+    
+    /* For string values we remind ourselves that strings are just pointers to memory => og. memory may not stay valid. So we duplicate them! */
+    item->owner = duplicate_string(owner, strlen(owner));
+    item->description = duplicate_string(description, str_len(description));
+    item->location = duplicate_string(location, str_len(location));
+
+    // Finally return our item
+    return item;
 }
 
 void free_item(item_t *item) {
-    /* TODO: Free a bst node and attached heap allocated memory such as strings */
+    /* Note: the struct itself (item) is heap memory, and each string is also seperate heap memory bcs. duplicate_string used malloc() 
+    Thus, we have had 4 allocations
+    (1) item
+    (2) owner
+    (3) description
+    (4) location 
+    So we will free everything owned by item starting by freeing internal heap memory first... then freeing outer struct last*/
+    free(item->owner);
+    free(item->description)
+    free(item->location);
+    free(item);
 }
-
+// FORCE CHANGE 123
 /*====================== STAGE  1 ======================== */
 void registry_command_add(registry_t *reg, char *command_str) {
     char *properties[NUM_ITEM_PROPERTIES];
