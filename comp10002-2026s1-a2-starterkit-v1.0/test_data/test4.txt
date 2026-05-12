@@ -1,0 +1,89 @@
+==== STAGE 1 ==============================================
+ADD 403;Owner403;Thing403;Stop 1;FOUND
+ADD 406;Owner406;Thing406;Stop 1;FOUND
+ADD 409;Owner409;Thing409;Stop 1;FOUND
+ADD 412;Owner412;Thing412;Stop 1;FOUND
+ADD 433;Owner433;Thing433;Old Arts;FOUND
+ADD 451;Owner451;Thing451;Old Arts;LOST
+ADD 454;Owner454;Thing454;Old Arts;LOST
+ADD 457;Owner457;Thing457;Old Arts;LOST
+ADD 460;Owner460;Thing460;Stop 1;LOST
+ADD 463;Owner463;Thing463;Stop 1;LOST
+ADD 466;Owner466;Thing466;Stop 1;LOST
+ADD 469;Owner469;Thing469;Stop 1;LOST
+ADD 532;Owner532;Thing532;Infrastructure Engineering;LOST
+ADD 535;Owner535;Thing535;Infrastructure Engineering;LOST
+ADD 484;Owner484;Thing484;Stop 1;LOST
+ADD 487;Owner487;Thing487;Stop 1;LOST
+ADD 490;Owner490;Thing490;Stop 1;LOST
+ADD 493;Owner493;Thing493;Stop 1;LOST
+ADD 496;Owner496;Thing496;Stop 1;LOST
+ADD 436;Owner436;Thing436;Old Arts;FOUND
+ADD 439;Owner439;Thing439;Old Arts;FOUND
+ADD 442;Owner442;Thing442;Old Arts;LOST
+PRINT OWNER
+PRINT UID
+ADD 445;Owner445;Thing445;Old Arts;LOST
+ADD 448;Owner448;Thing448;Old Arts;LOST
+ADD 499;Owner499;Thing499;Stop 1;LOST
+ADD 502;Owner502;Thing502;Stop 1;LOST
+ADD 505;Owner505;Thing505;Stop 1;LOST
+ADD 508;Owner508;Thing508;Stop 1;LOST
+ADD 511;Owner511;Thing511;Stop 1;LOST
+ADD 514;Owner514;Thing514;Stop 1;LOST
+ADD 517;Owner517;Thing517;Stop 1;LOST
+ADD 520;Owner520;Thing520;Infrastructure Engineering;LOST
+ADD 523;Owner523;Thing523;Infrastructure Engineering;LOST
+PRINT DESCRIPTION
+ADD 526;Owner526;Thing526;Infrastructure Engineering;LOST
+ADD 529;Owner529;Thing529;Infrastructure Engineering;LOST
+ADD 544;Owner544;Thing544;Infrastructure Engineering;LOST
+ADD 547;Owner547;Thing547;Stop 1;LOST
+ADD 550;Owner550;Thing550;Stop 1;LOST
+ADD 553;Owner553;Thing553;Stop 1;LOST
+ADD 556;Owner556;Thing556;Stop 1;LOST
+ADD 559;Owner559;Thing559;Stop 1;LOST
+ADD 562;Owner562;Thing562;Stop 1;LOST
+ADD 565;Owner565;Thing565;Stop 1;LOST
+ADD 568;Owner568;Thing568;Stop 1;LOST
+ADD 571;Owner571;Thing571;Stop 1;FOUND
+ADD 574;Owner574;Thing574;Stop 1;FOUND
+PRINT OWNER
+==== STAGE 2 ==============================================
+STATS UID
+STATS OWNER
+STATS STATUS
+ADD 538;Owner538;Thing538;Infrastructure Engineering;LOST
+ADD 541;Owner541;Thing541;Infrastructure Engineering;LOST
+ADD 472;Owner472;Thing472;Stop 1;LOST
+ADD 475;Owner475;Thing475;Stop 1;LOST
+ADD 478;Owner478;Thing478;Stop 1;LOST
+ADD 481;Owner481;Thing481;Stop 1;LOST
+STATS LOCATION
+ADD 415;Owner415;Thing415;Stop 1;FOUND
+ADD 418;Owner418;Thing418;Stop 1;FOUND
+ADD 421;Owner421;Thing421;Stop 1;FOUND
+ADD 424;Owner424;Thing424;Stop 1;FOUND
+ADD 427;Owner427;Thing427;Old Arts;FOUND
+ADD 430;Owner430;Thing430;Old Arts;FOUND
+STATS DESCRIPTION
+==== STAGE 3 ==============================================
+QUERY OWNER Owner541
+QUERY LOCATION Stop 1
+QUERY UID 571
+QUERY UID 574
+==== STAGE 4 ==============================================
+DELETE 406
+PRINT DESCRIPTION
+DELETE 541
+PRINT UID
+DELETE 421
+DELETE 424
+DELETE 427
+PRINT OWNER
+==== STAGE 5 ==============================================
+UPDATE 415 LOCATION Stop 1
+UPDATE 565 LOCATION Arts West
+UPDATE 526 DESCRIPTION A green spiral bound notebook
+PRINT OWNER
+QUIT

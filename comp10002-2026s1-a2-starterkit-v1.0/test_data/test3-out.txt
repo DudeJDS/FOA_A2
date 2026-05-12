@@ -1,0 +1,181 @@
+==== STAGE 1 ==============================================
+Added item: 344 | Bryan | Water Bottle | Library | LOST
+Added item: 1231 | Isabelle | Laptop Charger | Old Metallurgy | LOST
+Added item: 145 | Kacie | Calculator | Baillieu Library | LOST
+Added item: 462 | Hanzhi | Blue umbrella | ERC Library | LOST
+Added item: 667 | Jamie | Water Bottle | Library | LOST
+Added item: 7543 | Jerry | Pencil | Library | LOST
+Added item: 615 | Maria | Water Bottle | Old Metallurgy | LOST
+Added item: 55437 | Maya | Textbook |  | LOST
+Added item: 9437 | Oscar | Water Bottle | David Caro Building | LOST
+Added item: 19123 | Rithik | Water Bottle | Baillieu Library | LOST
+Added item: 1238 | Liam | Water Bottle | Baillieu Library | LOST
+Printing sorted by OWNER:
+> 344 | Bryan | Water Bottle | Library | LOST
+> 462 | Hanzhi | Blue umbrella | ERC Library | LOST
+> 1231 | Isabelle | Laptop Charger | Old Metallurgy | LOST
+> 667 | Jamie | Water Bottle | Library | LOST
+> 7543 | Jerry | Pencil | Library | LOST
+> 145 | Kacie | Calculator | Baillieu Library | LOST
+> 1238 | Liam | Water Bottle | Baillieu Library | LOST
+> 615 | Maria | Water Bottle | Old Metallurgy | LOST
+> 55437 | Maya | Textbook |  | LOST
+> 9437 | Oscar | Water Bottle | David Caro Building | LOST
+> 19123 | Rithik | Water Bottle | Baillieu Library | LOST
+Added item: 12389 | UNKNOWN | Water Bottle | Wilson Hall | LOST
+Item with UID 55437 not added as it already exists
+Item with UID 12389 not added as it already exists
+Printing sorted by UID:
+> 145 | Kacie | Calculator | Baillieu Library | LOST
+> 344 | Bryan | Water Bottle | Library | LOST
+> 462 | Hanzhi | Blue umbrella | ERC Library | LOST
+> 615 | Maria | Water Bottle | Old Metallurgy | LOST
+> 667 | Jamie | Water Bottle | Library | LOST
+> 1231 | Isabelle | Laptop Charger | Old Metallurgy | LOST
+> 1238 | Liam | Water Bottle | Baillieu Library | LOST
+> 7543 | Jerry | Pencil | Library | LOST
+> 9437 | Oscar | Water Bottle | David Caro Building | LOST
+> 12389 | UNKNOWN | Water Bottle | Wilson Hall | LOST
+> 19123 | Rithik | Water Bottle | Baillieu Library | LOST
+> 55437 | Maya | Textbook |  | LOST
+Printing sorted by LOCATION:
+> 55437 | Maya | Textbook |  | LOST
+> 145 | Kacie | Calculator | Baillieu Library | LOST
+> 19123 | Rithik | Water Bottle | Baillieu Library | LOST
+> 1238 | Liam | Water Bottle | Baillieu Library | LOST
+> 9437 | Oscar | Water Bottle | David Caro Building | LOST
+> 462 | Hanzhi | Blue umbrella | ERC Library | LOST
+> 344 | Bryan | Water Bottle | Library | LOST
+> 667 | Jamie | Water Bottle | Library | LOST
+> 7543 | Jerry | Pencil | Library | LOST
+> 1231 | Isabelle | Laptop Charger | Old Metallurgy | LOST
+> 615 | Maria | Water Bottle | Old Metallurgy | LOST
+> 12389 | UNKNOWN | Water Bottle | Wilson Hall | LOST
+Printing sorted by OWNER:
+> 344 | Bryan | Water Bottle | Library | LOST
+> 462 | Hanzhi | Blue umbrella | ERC Library | LOST
+> 1231 | Isabelle | Laptop Charger | Old Metallurgy | LOST
+> 667 | Jamie | Water Bottle | Library | LOST
+> 7543 | Jerry | Pencil | Library | LOST
+> 145 | Kacie | Calculator | Baillieu Library | LOST
+> 1238 | Liam | Water Bottle | Baillieu Library | LOST
+> 615 | Maria | Water Bottle | Old Metallurgy | LOST
+> 55437 | Maya | Textbook |  | LOST
+> 9437 | Oscar | Water Bottle | David Caro Building | LOST
+> 19123 | Rithik | Water Bottle | Baillieu Library | LOST
+> 12389 | UNKNOWN | Water Bottle | Wilson Hall | LOST
+Added item: 8929 | UNKNOWN | Ruler | Old Arts | LOST
+Added item: 120949 | UNKNOWN | Water Bottle | Old Arts | LOST
+Added item: 12938 | Kacie | Calculator | Baillieu Library | LOST
+Printing sorted by OWNER:
+> 344 | Bryan | Water Bottle | Library | LOST
+> 462 | Hanzhi | Blue umbrella | ERC Library | LOST
+> 1231 | Isabelle | Laptop Charger | Old Metallurgy | LOST
+> 667 | Jamie | Water Bottle | Library | LOST
+> 7543 | Jerry | Pencil | Library | LOST
+> 145 | Kacie | Calculator | Baillieu Library | LOST
+> 12938 | Kacie | Calculator | Baillieu Library | LOST
+> 1238 | Liam | Water Bottle | Baillieu Library | LOST
+> 615 | Maria | Water Bottle | Old Metallurgy | LOST
+> 55437 | Maya | Textbook |  | LOST
+> 9437 | Oscar | Water Bottle | David Caro Building | LOST
+> 19123 | Rithik | Water Bottle | Baillieu Library | LOST
+> 12389 | UNKNOWN | Water Bottle | Wilson Hall | LOST
+> 8929 | UNKNOWN | Ruler | Old Arts | LOST
+> 120949 | UNKNOWN | Water Bottle | Old Arts | LOST
+==== STAGE 2 ==============================================
+Stats for UID BST:
+> Total items: 15
+> Unique values: 15
+> Tree height: 8
+Stats for OWNER BST:
+> Total items: 15
+> Unique values: 12
+> Tree height: 10
+Stats for STATUS BST:
+> Total items: 15
+> Lost items: 15
+> Unique values: 1
+> Tree height: 15
+Added item: 124 | Oscar | Laptop Charger | Old Engineering | LOST
+Stats for LOCATION BST:
+> Total items: 16
+> Unique values: 9
+> Tree height: 7
+Stats for DESCRIPTION BST:
+> Total items: 16
+> Unique values: 7
+> Tree height: 8
+==== STAGE 3 ==============================================
+Query for 'UID 4521' found no matches.
+Query for 'OWNER Alice' found no matches.
+Item with UID 8929 not added as it already exists
+Item with UID 120949 not added as it already exists
+Item with UID 12938 not added as it already exists
+Query for 'OWNER UNKNOWN' found the following matches:
+> 12389 | UNKNOWN | Water Bottle | Wilson Hall | LOST
+> 8929 | UNKNOWN | Ruler | Old Arts | LOST
+> 120949 | UNKNOWN | Water Bottle | Old Arts | LOST
+Query for 'LOCATION Library' found the following matches:
+> 344 | Bryan | Water Bottle | Library | LOST
+> 667 | Jamie | Water Bottle | Library | LOST
+> 7543 | Jerry | Pencil | Library | LOST
+==== STAGE 4 ==============================================
+Item with UID 7 not deleted as it was not found
+Printing sorted by UID:
+> 124 | Oscar | Laptop Charger | Old Engineering | LOST
+> 145 | Kacie | Calculator | Baillieu Library | LOST
+> 344 | Bryan | Water Bottle | Library | LOST
+> 462 | Hanzhi | Blue umbrella | ERC Library | LOST
+> 615 | Maria | Water Bottle | Old Metallurgy | LOST
+> 667 | Jamie | Water Bottle | Library | LOST
+> 1231 | Isabelle | Laptop Charger | Old Metallurgy | LOST
+> 1238 | Liam | Water Bottle | Baillieu Library | LOST
+> 7543 | Jerry | Pencil | Library | LOST
+> 8929 | UNKNOWN | Ruler | Old Arts | LOST
+> 9437 | Oscar | Water Bottle | David Caro Building | LOST
+> 12389 | UNKNOWN | Water Bottle | Wilson Hall | LOST
+> 12938 | Kacie | Calculator | Baillieu Library | LOST
+> 19123 | Rithik | Water Bottle | Baillieu Library | LOST
+> 55437 | Maya | Textbook |  | LOST
+> 120949 | UNKNOWN | Water Bottle | Old Arts | LOST
+Query for 'UID 145' found the following matches:
+> 145 | Kacie | Calculator | Baillieu Library | LOST
+Deleted item: 145 | Kacie | Calculator | Baillieu Library | LOST
+Deleted item: 12389 | UNKNOWN | Water Bottle | Wilson Hall | LOST
+Item with UID 1213 not deleted as it was not found
+Printing sorted by OWNER:
+> 344 | Bryan | Water Bottle | Library | LOST
+> 462 | Hanzhi | Blue umbrella | ERC Library | LOST
+> 1231 | Isabelle | Laptop Charger | Old Metallurgy | LOST
+> 667 | Jamie | Water Bottle | Library | LOST
+> 7543 | Jerry | Pencil | Library | LOST
+> 12938 | Kacie | Calculator | Baillieu Library | LOST
+> 1238 | Liam | Water Bottle | Baillieu Library | LOST
+> 615 | Maria | Water Bottle | Old Metallurgy | LOST
+> 55437 | Maya | Textbook |  | LOST
+> 9437 | Oscar | Water Bottle | David Caro Building | LOST
+> 124 | Oscar | Laptop Charger | Old Engineering | LOST
+> 19123 | Rithik | Water Bottle | Baillieu Library | LOST
+> 8929 | UNKNOWN | Ruler | Old Arts | LOST
+> 120949 | UNKNOWN | Water Bottle | Old Arts | LOST
+==== STAGE 5 ==============================================
+Printing sorted by OWNER:
+> 344 | Bryan | Water Bottle | Library | LOST
+> 462 | Hanzhi | Blue umbrella | ERC Library | LOST
+> 1231 | Isabelle | Laptop Charger | Old Metallurgy | LOST
+> 667 | Jamie | Water Bottle | Library | LOST
+> 7543 | Jerry | Pencil | Library | LOST
+> 12938 | Kacie | Calculator | Baillieu Library | LOST
+> 1238 | Liam | Water Bottle | Baillieu Library | LOST
+> 615 | Maria | Water Bottle | Old Metallurgy | LOST
+> 55437 | Maya | Textbook |  | LOST
+> 9437 | Oscar | Water Bottle | David Caro Building | LOST
+> 124 | Oscar | Laptop Charger | Old Engineering | LOST
+> 19123 | Rithik | Water Bottle | Baillieu Library | LOST
+> 8929 | UNKNOWN | Ruler | Old Arts | LOST
+> 120949 | UNKNOWN | Water Bottle | Old Arts | LOST
+Query for 'OWNER UNKNOWN' found the following matches:
+> 8929 | UNKNOWN | Ruler | Old Arts | LOST
+> 120949 | UNKNOWN | Water Bottle | Old Arts | LOST
+QUITTING

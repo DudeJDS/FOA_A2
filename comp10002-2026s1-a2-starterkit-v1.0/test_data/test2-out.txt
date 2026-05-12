@@ -1,0 +1,116 @@
+==== STAGE 1 ==============================================
+Added item: 12 | Lenny | Laptop Charger | Old Metallurgy | LOST
+Added item: 2 | UNKNOWN | Umbrella | ERC Library | LOST
+Added item: 5 | Bryan | Pencil | Library | LOST
+Added item: 1 | Kacie | Water Bottle | Baillieu Library | LOST
+Added item: 20 | Shaanan | Calculator | Baillieu Library | FOUND
+Printing sorted by UID:
+> 1 | Kacie | Water Bottle | Baillieu Library | LOST
+> 2 | UNKNOWN | Umbrella | ERC Library | LOST
+> 5 | Bryan | Pencil | Library | LOST
+> 12 | Lenny | Laptop Charger | Old Metallurgy | LOST
+> 20 | Shaanan | Calculator | Baillieu Library | FOUND
+Printing sorted by LOCATION:
+> 1 | Kacie | Water Bottle | Baillieu Library | LOST
+> 20 | Shaanan | Calculator | Baillieu Library | FOUND
+> 2 | UNKNOWN | Umbrella | ERC Library | LOST
+> 5 | Bryan | Pencil | Library | LOST
+> 12 | Lenny | Laptop Charger | Old Metallurgy | LOST
+Added item: 9 | UNKNOWN | Ruler | Old Arts | LOST
+Added item: 149 | UNKNOWN | Water Bottle | Old Arts | LOST
+Added item: 128 | Kacie | Calculator | Electrical Engineering | LOST
+Printing sorted by UID:
+> 1 | Kacie | Water Bottle | Baillieu Library | LOST
+> 2 | UNKNOWN | Umbrella | ERC Library | LOST
+> 5 | Bryan | Pencil | Library | LOST
+> 9 | UNKNOWN | Ruler | Old Arts | LOST
+> 12 | Lenny | Laptop Charger | Old Metallurgy | LOST
+> 20 | Shaanan | Calculator | Baillieu Library | FOUND
+> 128 | Kacie | Calculator | Electrical Engineering | LOST
+> 149 | UNKNOWN | Water Bottle | Old Arts | LOST
+Printing sorted by STATUS:
+> 12 | Lenny | Laptop Charger | Old Metallurgy | LOST
+> 2 | UNKNOWN | Umbrella | ERC Library | LOST
+> 5 | Bryan | Pencil | Library | LOST
+> 1 | Kacie | Water Bottle | Baillieu Library | LOST
+> 9 | UNKNOWN | Ruler | Old Arts | LOST
+> 149 | UNKNOWN | Water Bottle | Old Arts | LOST
+> 128 | Kacie | Calculator | Electrical Engineering | LOST
+> 20 | Shaanan | Calculator | Baillieu Library | FOUND
+==== STAGE 2 ==============================================
+Stats for UID BST:
+> Total items: 8
+> Unique values: 8
+> Tree height: 4
+Stats for OWNER BST:
+> Total items: 8
+> Unique values: 5
+> Tree height: 4
+Stats for STATUS BST:
+> Total items: 8
+> Lost items: 7
+> Unique values: 2
+> Tree height: 8
+Added item: 124 | Jamie | Laptop Charger | Old Engineering | LOST
+Stats for LOCATION BST:
+> Total items: 9
+> Unique values: 7
+> Tree height: 6
+Stats for DESCRIPTION BST:
+> Total items: 9
+> Unique values: 6
+> Tree height: 4
+==== STAGE 3 ==============================================
+Query for 'LOCATION Library' found the following matches:
+> 5 | Bryan | Pencil | Library | LOST
+Added item: 150 | Hanzhi | Notebook | Old Engineering | LOST
+Query for 'OWNER UNKNOWN' found the following matches:
+> 2 | UNKNOWN | Umbrella | ERC Library | LOST
+> 9 | UNKNOWN | Ruler | Old Arts | LOST
+> 149 | UNKNOWN | Water Bottle | Old Arts | LOST
+==== STAGE 4 ==============================================
+Printing sorted by STATUS:
+> 12 | Lenny | Laptop Charger | Old Metallurgy | LOST
+> 2 | UNKNOWN | Umbrella | ERC Library | LOST
+> 5 | Bryan | Pencil | Library | LOST
+> 1 | Kacie | Water Bottle | Baillieu Library | LOST
+> 9 | UNKNOWN | Ruler | Old Arts | LOST
+> 149 | UNKNOWN | Water Bottle | Old Arts | LOST
+> 128 | Kacie | Calculator | Electrical Engineering | LOST
+> 124 | Jamie | Laptop Charger | Old Engineering | LOST
+> 150 | Hanzhi | Notebook | Old Engineering | LOST
+> 20 | Shaanan | Calculator | Baillieu Library | FOUND
+Deleted item: 2 | UNKNOWN | Umbrella | ERC Library | LOST
+Deleted item: 149 | UNKNOWN | Water Bottle | Old Arts | LOST
+Item with UID 19 not deleted as it was not found
+Printing sorted by UID:
+> 1 | Kacie | Water Bottle | Baillieu Library | LOST
+> 5 | Bryan | Pencil | Library | LOST
+> 9 | UNKNOWN | Ruler | Old Arts | LOST
+> 12 | Lenny | Laptop Charger | Old Metallurgy | LOST
+> 20 | Shaanan | Calculator | Baillieu Library | FOUND
+> 124 | Jamie | Laptop Charger | Old Engineering | LOST
+> 128 | Kacie | Calculator | Electrical Engineering | LOST
+> 150 | Hanzhi | Notebook | Old Engineering | LOST
+Printing sorted by DESCRIPTION:
+> 20 | Shaanan | Calculator | Baillieu Library | FOUND
+> 128 | Kacie | Calculator | Electrical Engineering | LOST
+> 12 | Lenny | Laptop Charger | Old Metallurgy | LOST
+> 124 | Jamie | Laptop Charger | Old Engineering | LOST
+> 150 | Hanzhi | Notebook | Old Engineering | LOST
+> 5 | Bryan | Pencil | Library | LOST
+> 9 | UNKNOWN | Ruler | Old Arts | LOST
+> 1 | Kacie | Water Bottle | Baillieu Library | LOST
+==== STAGE 5 ==============================================
+Item with UID 2 not updated as it was not found
+Updated item with UID 128 to: 128 | Kacie | Calculator | Stop 1 | LOST
+Printing sorted by OWNER:
+> 5 | Bryan | Pencil | Library | LOST
+> 150 | Hanzhi | Notebook | Old Engineering | LOST
+> 124 | Jamie | Laptop Charger | Old Engineering | LOST
+> 1 | Kacie | Water Bottle | Baillieu Library | LOST
+> 128 | Kacie | Calculator | Stop 1 | LOST
+> 12 | Lenny | Laptop Charger | Old Metallurgy | LOST
+> 20 | Shaanan | Calculator | Baillieu Library | FOUND
+> 9 | UNKNOWN | Ruler | Old Arts | LOST
+QUITTING

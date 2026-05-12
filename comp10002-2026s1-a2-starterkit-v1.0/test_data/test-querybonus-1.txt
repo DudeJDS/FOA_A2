@@ -1,0 +1,28 @@
+ADD 1344;A;Water Bottle;Library;LOST
+ADD 31;A;Laptop Charger;Old Metallurgy;LOST
+ADD 185;U;Calculator;Baillieu Library;LOST
+ADD 422;Aa;Blue umbrella;ERC Library;LOST
+ADD 657;Aa;Water Bottle;Library;LOST
+ADD 523;A;Pencil;Library;LOST
+ADD 6125;M;Water Bottle;Old Metallurgy;LOST
+ADD 51437;M;Textbook;;LOST
+ADD 487;A;Water Bottle;David Caro Building;LOST
+ADD 163;U;Water Bottle;Baillieu Library;LOST
+ADD 138;U;Water Bottle;Baillieu Library;LOST
+ADD 843;A;Pencil Case;Library;LOST
+ADD 643;Aa;Water Bottle;Old Metallurgy;FOUND
+ADD 5337;Aa;Water Bottle;Wilson Hall;FOUND
+ADD 132;Ab;Water Bottle;Wilson Hall;LOST
+ADD 343;A;Textbook;;LOST
+ADD 943;A;Water Bottle;David Caro Building;LOST
+ADD 913;A;Water Bottle;Baillieu Library;LOST
+ADD 238;Aaaaa;Water Bottle;Baillieu Library;FOUND
+ADD 123;Ae;Water Bottle;Wilson Hall;LOST
+ADD 729;A;Ruler;Old Arts;LOST
+ADD 1949;UNKNOWN;Water Bottle;Old Arts;LOST
+ADD 532;K;Calculator;Baillieu Library;LOST
+QUERY OWNER A
+QUERY DESCRIPTION Pencil Case
+QUERY STATUS LOST
+QUERY LOCATION David Caro Building
+QUERY OWNER B

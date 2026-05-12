@@ -1,0 +1,61 @@
+==== STAGE 1 ==============================================
+Added item: 220 | UNKNOWN | Laptop Charger | Old Metallurgy | LOST
+Added item: 4521 | Alice | Blue umbrella | ERC Library | LOST
+Added item: 4524 | Kacie | Pencil | Library | LOST
+Item with UID 220 not added as it already exists
+Added item: 2292 | Tracy | Water Bottle | Old Metallurgy | LOST
+Printing sorted by UID:
+> 220 | UNKNOWN | Laptop Charger | Old Metallurgy | LOST
+> 2292 | Tracy | Water Bottle | Old Metallurgy | LOST
+> 4521 | Alice | Blue umbrella | ERC Library | LOST
+> 4524 | Kacie | Pencil | Library | LOST
+Added item: 234 | Hanzhi | Water Bottle | Library | LOST
+Added item: 2291 | UNKNOWN | Water Bottle | Library | LOST
+Added item: 2324 | Alice | Pencil Case | Library | LOST
+Printing sorted by UID:
+> 220 | UNKNOWN | Laptop Charger | Old Metallurgy | LOST
+> 234 | Hanzhi | Water Bottle | Library | LOST
+> 2291 | UNKNOWN | Water Bottle | Library | LOST
+> 2292 | Tracy | Water Bottle | Old Metallurgy | LOST
+> 2324 | Alice | Pencil Case | Library | LOST
+> 4521 | Alice | Blue umbrella | ERC Library | LOST
+> 4524 | Kacie | Pencil | Library | LOST
+==== STAGE 2 ==============================================
+Stats for UID BST:
+> Total items: 7
+> Unique values: 7
+> Tree height: 5
+Added item: 1234 | Shaanan | Water Bottle | Sunderland Theatre | LOST
+Added item: 1274 | UNKNOWN | Blue Pen | Sunderland Theatre | LOST
+Stats for UID BST:
+> Total items: 9
+> Unique values: 9
+> Tree height: 7
+==== STAGE 3 ==============================================
+Query for 'UID 4521' found the following matches:
+> 4521 | Alice | Blue umbrella | ERC Library | LOST
+==== STAGE 4 ==============================================
+Printing sorted by UID:
+> 220 | UNKNOWN | Laptop Charger | Old Metallurgy | LOST
+> 234 | Hanzhi | Water Bottle | Library | LOST
+> 1234 | Shaanan | Water Bottle | Sunderland Theatre | LOST
+> 1274 | UNKNOWN | Blue Pen | Sunderland Theatre | LOST
+> 2291 | UNKNOWN | Water Bottle | Library | LOST
+> 2292 | Tracy | Water Bottle | Old Metallurgy | LOST
+> 2324 | Alice | Pencil Case | Library | LOST
+> 4521 | Alice | Blue umbrella | ERC Library | LOST
+> 4524 | Kacie | Pencil | Library | LOST
+Deleted item: 234 | Hanzhi | Water Bottle | Library | LOST
+Deleted item: 2324 | Alice | Pencil Case | Library | LOST
+Printing sorted by UID:
+> 220 | UNKNOWN | Laptop Charger | Old Metallurgy | LOST
+> 1234 | Shaanan | Water Bottle | Sunderland Theatre | LOST
+> 1274 | UNKNOWN | Blue Pen | Sunderland Theatre | LOST
+> 2291 | UNKNOWN | Water Bottle | Library | LOST
+> 2292 | Tracy | Water Bottle | Old Metallurgy | LOST
+> 4521 | Alice | Blue umbrella | ERC Library | LOST
+> 4524 | Kacie | Pencil | Library | LOST
+==== STAGE 5 ==============================================
+Updated item with UID 220 to: 220 | Kacie | Laptop Charger | Old Metallurgy | LOST
+Updated item with UID 220 to: 220 | Kacie | Laptop Charger | Old Metallurgy | FOUND
+QUITTING

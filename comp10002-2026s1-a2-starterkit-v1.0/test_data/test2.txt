@@ -1,0 +1,36 @@
+==== STAGE 1 ==============================================
+ADD 12;Lenny;Laptop Charger;Old Metallurgy;LOST
+ADD 2;UNKNOWN;Umbrella;ERC Library;LOST
+ADD 5;Bryan;Pencil;Library;LOST
+ADD 1;Kacie;Water Bottle;Baillieu Library;LOST
+ADD 20;Shaanan;Calculator;Baillieu Library;FOUND
+PRINT UID
+PRINT LOCATION
+ADD 9;UNKNOWN;Ruler;Old Arts;LOST
+ADD 149;UNKNOWN;Water Bottle;Old Arts;LOST
+ADD 128;Kacie;Calculator;Electrical Engineering;LOST
+PRINT UID
+PRINT STATUS
+==== STAGE 2 ==============================================
+STATS UID
+STATS OWNER
+STATS STATUS
+ADD 124;Jamie;Laptop Charger;Old Engineering;LOST
+STATS LOCATION
+STATS DESCRIPTION
+==== STAGE 3 ==============================================
+QUERY LOCATION Library
+ADD 150;Hanzhi;Notebook;Old Engineering;LOST
+QUERY OWNER UNKNOWN
+==== STAGE 4 ==============================================
+PRINT STATUS
+DELETE 2
+DELETE 149
+DELETE 19
+PRINT UID
+PRINT DESCRIPTION
+==== STAGE 5 ==============================================
+UPDATE 2 OWNER Kacie
+UPDATE 128 LOCATION Stop 1
+PRINT OWNER
+QUIT

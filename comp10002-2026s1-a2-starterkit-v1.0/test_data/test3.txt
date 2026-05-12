@@ -1,0 +1,50 @@
+==== STAGE 1 ==============================================
+ADD 344;Bryan;Water Bottle;Library;LOST
+ADD 1231;Isabelle;Laptop Charger;Old Metallurgy;LOST
+ADD 145;Kacie;Calculator;Baillieu Library;LOST
+ADD 462;Hanzhi;Blue umbrella;ERC Library;LOST
+ADD 667;Jamie;Water Bottle;Library;LOST
+ADD 7543;Jerry;Pencil;Library;LOST
+ADD 615;Maria;Water Bottle;Old Metallurgy;LOST
+ADD 55437;Maya;Textbook;;LOST
+ADD 9437;Oscar;Water Bottle;David Caro Building;LOST
+ADD 19123;Rithik;Water Bottle;Baillieu Library;LOST
+ADD 1238;Liam;Water Bottle;Baillieu Library;LOST
+PRINT OWNER
+ADD 12389;UNKNOWN;Water Bottle;Wilson Hall;LOST
+ADD 55437;UNKNOWN;Water Bottle;Wilson Hall;LOST
+ADD 12389;UNKNOWN;Water Bottle;Wilson Hall;LOST
+PRINT UID
+PRINT LOCATION
+PRINT OWNER
+ADD 8929;UNKNOWN;Ruler;Old Arts;LOST
+ADD 120949;UNKNOWN;Water Bottle;Old Arts;LOST
+ADD 12938;Kacie;Calculator;Baillieu Library;LOST
+PRINT OWNER
+==== STAGE 2 ==============================================
+STATS UID
+STATS OWNER
+STATS STATUS
+ADD 124;Oscar;Laptop Charger;Old Engineering;LOST
+STATS LOCATION
+STATS DESCRIPTION
+==== STAGE 3 ==============================================
+QUERY UID 4521
+QUERY OWNER Alice
+ADD 8929;Maria;Ruler;Old Arts;LOST
+ADD 120949;Kacie;Water Bottle;Old Arts;LOST
+ADD 12938;Kacie;Calculator;Baillieu Library;LOST
+QUERY OWNER UNKNOWN
+QUERY LOCATION Library
+==== STAGE 4 ==============================================
+DELETE 7
+PRINT UID
+QUERY UID 145
+DELETE 145
+DELETE 12389
+DELETE 1213
+PRINT OWNER
+==== STAGE 5 ==============================================
+PRINT OWNER
+QUERY OWNER UNKNOWN
+QUIT

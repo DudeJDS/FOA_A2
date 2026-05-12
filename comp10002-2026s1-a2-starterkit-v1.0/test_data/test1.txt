@@ -1,0 +1,27 @@
+==== STAGE 1 ==============================================
+ADD 220;UNKNOWN;Laptop Charger;Old Metallurgy;LOST
+ADD 4521;Alice;Blue umbrella;ERC Library;LOST
+ADD 4524;Kacie;Pencil;Library;LOST
+ADD 220;UNKNOWN;Water Bottle;Library;LOST
+ADD 2292;Tracy;Water Bottle;Old Metallurgy;LOST
+PRINT UID
+ADD 234;Hanzhi;Water Bottle;Library;LOST
+ADD 2291;UNKNOWN;Water Bottle;Library;LOST
+ADD 2324;Alice;Pencil Case;Library;LOST
+PRINT UID
+==== STAGE 2 ==============================================
+STATS UID
+ADD 1234;Shaanan;Water Bottle;Sunderland Theatre;LOST
+ADD 1274;UNKNOWN;Blue Pen;Sunderland Theatre;LOST
+STATS UID
+==== STAGE 3 ==============================================
+QUERY UID 4521
+==== STAGE 4 ==============================================
+PRINT UID
+DELETE 234
+DELETE 2324
+PRINT UID
+==== STAGE 5 ==============================================
+UPDATE 220 OWNER Kacie
+UPDATE 220 STATUS FOUND
+QUIT

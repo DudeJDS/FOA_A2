@@ -1,0 +1,488 @@
+==== STAGE 1 ==============================================
+Added item: 403 | Owner403 | Thing403 | Stop 1 | FOUND
+Added item: 406 | Owner406 | Thing406 | Stop 1 | FOUND
+Added item: 409 | Owner409 | Thing409 | Stop 1 | FOUND
+Added item: 412 | Owner412 | Thing412 | Stop 1 | FOUND
+Added item: 433 | Owner433 | Thing433 | Old Arts | FOUND
+Added item: 451 | Owner451 | Thing451 | Old Arts | LOST
+Added item: 454 | Owner454 | Thing454 | Old Arts | LOST
+Added item: 457 | Owner457 | Thing457 | Old Arts | LOST
+Added item: 460 | Owner460 | Thing460 | Stop 1 | LOST
+Added item: 463 | Owner463 | Thing463 | Stop 1 | LOST
+Added item: 466 | Owner466 | Thing466 | Stop 1 | LOST
+Added item: 469 | Owner469 | Thing469 | Stop 1 | LOST
+Added item: 532 | Owner532 | Thing532 | Infrastructure Engineering | LOST
+Added item: 535 | Owner535 | Thing535 | Infrastructure Engineering | LOST
+Added item: 484 | Owner484 | Thing484 | Stop 1 | LOST
+Added item: 487 | Owner487 | Thing487 | Stop 1 | LOST
+Added item: 490 | Owner490 | Thing490 | Stop 1 | LOST
+Added item: 493 | Owner493 | Thing493 | Stop 1 | LOST
+Added item: 496 | Owner496 | Thing496 | Stop 1 | LOST
+Added item: 436 | Owner436 | Thing436 | Old Arts | FOUND
+Added item: 439 | Owner439 | Thing439 | Old Arts | FOUND
+Added item: 442 | Owner442 | Thing442 | Old Arts | LOST
+Printing sorted by OWNER:
+> 403 | Owner403 | Thing403 | Stop 1 | FOUND
+> 406 | Owner406 | Thing406 | Stop 1 | FOUND
+> 409 | Owner409 | Thing409 | Stop 1 | FOUND
+> 412 | Owner412 | Thing412 | Stop 1 | FOUND
+> 433 | Owner433 | Thing433 | Old Arts | FOUND
+> 436 | Owner436 | Thing436 | Old Arts | FOUND
+> 439 | Owner439 | Thing439 | Old Arts | FOUND
+> 442 | Owner442 | Thing442 | Old Arts | LOST
+> 451 | Owner451 | Thing451 | Old Arts | LOST
+> 454 | Owner454 | Thing454 | Old Arts | LOST
+> 457 | Owner457 | Thing457 | Old Arts | LOST
+> 460 | Owner460 | Thing460 | Stop 1 | LOST
+> 463 | Owner463 | Thing463 | Stop 1 | LOST
+> 466 | Owner466 | Thing466 | Stop 1 | LOST
+> 469 | Owner469 | Thing469 | Stop 1 | LOST
+> 484 | Owner484 | Thing484 | Stop 1 | LOST
+> 487 | Owner487 | Thing487 | Stop 1 | LOST
+> 490 | Owner490 | Thing490 | Stop 1 | LOST
+> 493 | Owner493 | Thing493 | Stop 1 | LOST
+> 496 | Owner496 | Thing496 | Stop 1 | LOST
+> 532 | Owner532 | Thing532 | Infrastructure Engineering | LOST
+> 535 | Owner535 | Thing535 | Infrastructure Engineering | LOST
+Printing sorted by UID:
+> 403 | Owner403 | Thing403 | Stop 1 | FOUND
+> 406 | Owner406 | Thing406 | Stop 1 | FOUND
+> 409 | Owner409 | Thing409 | Stop 1 | FOUND
+> 412 | Owner412 | Thing412 | Stop 1 | FOUND
+> 433 | Owner433 | Thing433 | Old Arts | FOUND
+> 436 | Owner436 | Thing436 | Old Arts | FOUND
+> 439 | Owner439 | Thing439 | Old Arts | FOUND
+> 442 | Owner442 | Thing442 | Old Arts | LOST
+> 451 | Owner451 | Thing451 | Old Arts | LOST
+> 454 | Owner454 | Thing454 | Old Arts | LOST
+> 457 | Owner457 | Thing457 | Old Arts | LOST
+> 460 | Owner460 | Thing460 | Stop 1 | LOST
+> 463 | Owner463 | Thing463 | Stop 1 | LOST
+> 466 | Owner466 | Thing466 | Stop 1 | LOST
+> 469 | Owner469 | Thing469 | Stop 1 | LOST
+> 484 | Owner484 | Thing484 | Stop 1 | LOST
+> 487 | Owner487 | Thing487 | Stop 1 | LOST
+> 490 | Owner490 | Thing490 | Stop 1 | LOST
+> 493 | Owner493 | Thing493 | Stop 1 | LOST
+> 496 | Owner496 | Thing496 | Stop 1 | LOST
+> 532 | Owner532 | Thing532 | Infrastructure Engineering | LOST
+> 535 | Owner535 | Thing535 | Infrastructure Engineering | LOST
+Added item: 445 | Owner445 | Thing445 | Old Arts | LOST
+Added item: 448 | Owner448 | Thing448 | Old Arts | LOST
+Added item: 499 | Owner499 | Thing499 | Stop 1 | LOST
+Added item: 502 | Owner502 | Thing502 | Stop 1 | LOST
+Added item: 505 | Owner505 | Thing505 | Stop 1 | LOST
+Added item: 508 | Owner508 | Thing508 | Stop 1 | LOST
+Added item: 511 | Owner511 | Thing511 | Stop 1 | LOST
+Added item: 514 | Owner514 | Thing514 | Stop 1 | LOST
+Added item: 517 | Owner517 | Thing517 | Stop 1 | LOST
+Added item: 520 | Owner520 | Thing520 | Infrastructure Engineering | LOST
+Added item: 523 | Owner523 | Thing523 | Infrastructure Engineering | LOST
+Printing sorted by DESCRIPTION:
+> 403 | Owner403 | Thing403 | Stop 1 | FOUND
+> 406 | Owner406 | Thing406 | Stop 1 | FOUND
+> 409 | Owner409 | Thing409 | Stop 1 | FOUND
+> 412 | Owner412 | Thing412 | Stop 1 | FOUND
+> 433 | Owner433 | Thing433 | Old Arts | FOUND
+> 436 | Owner436 | Thing436 | Old Arts | FOUND
+> 439 | Owner439 | Thing439 | Old Arts | FOUND
+> 442 | Owner442 | Thing442 | Old Arts | LOST
+> 445 | Owner445 | Thing445 | Old Arts | LOST
+> 448 | Owner448 | Thing448 | Old Arts | LOST
+> 451 | Owner451 | Thing451 | Old Arts | LOST
+> 454 | Owner454 | Thing454 | Old Arts | LOST
+> 457 | Owner457 | Thing457 | Old Arts | LOST
+> 460 | Owner460 | Thing460 | Stop 1 | LOST
+> 463 | Owner463 | Thing463 | Stop 1 | LOST
+> 466 | Owner466 | Thing466 | Stop 1 | LOST
+> 469 | Owner469 | Thing469 | Stop 1 | LOST
+> 484 | Owner484 | Thing484 | Stop 1 | LOST
+> 487 | Owner487 | Thing487 | Stop 1 | LOST
+> 490 | Owner490 | Thing490 | Stop 1 | LOST
+> 493 | Owner493 | Thing493 | Stop 1 | LOST
+> 496 | Owner496 | Thing496 | Stop 1 | LOST
+> 499 | Owner499 | Thing499 | Stop 1 | LOST
+> 502 | Owner502 | Thing502 | Stop 1 | LOST
+> 505 | Owner505 | Thing505 | Stop 1 | LOST
+> 508 | Owner508 | Thing508 | Stop 1 | LOST
+> 511 | Owner511 | Thing511 | Stop 1 | LOST
+> 514 | Owner514 | Thing514 | Stop 1 | LOST
+> 517 | Owner517 | Thing517 | Stop 1 | LOST
+> 520 | Owner520 | Thing520 | Infrastructure Engineering | LOST
+> 523 | Owner523 | Thing523 | Infrastructure Engineering | LOST
+> 532 | Owner532 | Thing532 | Infrastructure Engineering | LOST
+> 535 | Owner535 | Thing535 | Infrastructure Engineering | LOST
+Added item: 526 | Owner526 | Thing526 | Infrastructure Engineering | LOST
+Added item: 529 | Owner529 | Thing529 | Infrastructure Engineering | LOST
+Added item: 544 | Owner544 | Thing544 | Infrastructure Engineering | LOST
+Added item: 547 | Owner547 | Thing547 | Stop 1 | LOST
+Added item: 550 | Owner550 | Thing550 | Stop 1 | LOST
+Added item: 553 | Owner553 | Thing553 | Stop 1 | LOST
+Added item: 556 | Owner556 | Thing556 | Stop 1 | LOST
+Added item: 559 | Owner559 | Thing559 | Stop 1 | LOST
+Added item: 562 | Owner562 | Thing562 | Stop 1 | LOST
+Added item: 565 | Owner565 | Thing565 | Stop 1 | LOST
+Added item: 568 | Owner568 | Thing568 | Stop 1 | LOST
+Added item: 571 | Owner571 | Thing571 | Stop 1 | FOUND
+Added item: 574 | Owner574 | Thing574 | Stop 1 | FOUND
+Printing sorted by OWNER:
+> 403 | Owner403 | Thing403 | Stop 1 | FOUND
+> 406 | Owner406 | Thing406 | Stop 1 | FOUND
+> 409 | Owner409 | Thing409 | Stop 1 | FOUND
+> 412 | Owner412 | Thing412 | Stop 1 | FOUND
+> 433 | Owner433 | Thing433 | Old Arts | FOUND
+> 436 | Owner436 | Thing436 | Old Arts | FOUND
+> 439 | Owner439 | Thing439 | Old Arts | FOUND
+> 442 | Owner442 | Thing442 | Old Arts | LOST
+> 445 | Owner445 | Thing445 | Old Arts | LOST
+> 448 | Owner448 | Thing448 | Old Arts | LOST
+> 451 | Owner451 | Thing451 | Old Arts | LOST
+> 454 | Owner454 | Thing454 | Old Arts | LOST
+> 457 | Owner457 | Thing457 | Old Arts | LOST
+> 460 | Owner460 | Thing460 | Stop 1 | LOST
+> 463 | Owner463 | Thing463 | Stop 1 | LOST
+> 466 | Owner466 | Thing466 | Stop 1 | LOST
+> 469 | Owner469 | Thing469 | Stop 1 | LOST
+> 484 | Owner484 | Thing484 | Stop 1 | LOST
+> 487 | Owner487 | Thing487 | Stop 1 | LOST
+> 490 | Owner490 | Thing490 | Stop 1 | LOST
+> 493 | Owner493 | Thing493 | Stop 1 | LOST
+> 496 | Owner496 | Thing496 | Stop 1 | LOST
+> 499 | Owner499 | Thing499 | Stop 1 | LOST
+> 502 | Owner502 | Thing502 | Stop 1 | LOST
+> 505 | Owner505 | Thing505 | Stop 1 | LOST
+> 508 | Owner508 | Thing508 | Stop 1 | LOST
+> 511 | Owner511 | Thing511 | Stop 1 | LOST
+> 514 | Owner514 | Thing514 | Stop 1 | LOST
+> 517 | Owner517 | Thing517 | Stop 1 | LOST
+> 520 | Owner520 | Thing520 | Infrastructure Engineering | LOST
+> 523 | Owner523 | Thing523 | Infrastructure Engineering | LOST
+> 526 | Owner526 | Thing526 | Infrastructure Engineering | LOST
+> 529 | Owner529 | Thing529 | Infrastructure Engineering | LOST
+> 532 | Owner532 | Thing532 | Infrastructure Engineering | LOST
+> 535 | Owner535 | Thing535 | Infrastructure Engineering | LOST
+> 544 | Owner544 | Thing544 | Infrastructure Engineering | LOST
+> 547 | Owner547 | Thing547 | Stop 1 | LOST
+> 550 | Owner550 | Thing550 | Stop 1 | LOST
+> 553 | Owner553 | Thing553 | Stop 1 | LOST
+> 556 | Owner556 | Thing556 | Stop 1 | LOST
+> 559 | Owner559 | Thing559 | Stop 1 | LOST
+> 562 | Owner562 | Thing562 | Stop 1 | LOST
+> 565 | Owner565 | Thing565 | Stop 1 | LOST
+> 568 | Owner568 | Thing568 | Stop 1 | LOST
+> 571 | Owner571 | Thing571 | Stop 1 | FOUND
+> 574 | Owner574 | Thing574 | Stop 1 | FOUND
+==== STAGE 2 ==============================================
+Stats for UID BST:
+> Total items: 46
+> Unique values: 46
+> Tree height: 29
+Stats for OWNER BST:
+> Total items: 46
+> Unique values: 46
+> Tree height: 29
+Stats for STATUS BST:
+> Total items: 46
+> Lost items: 37
+> Unique values: 2
+> Tree height: 38
+Added item: 538 | Owner538 | Thing538 | Infrastructure Engineering | LOST
+Added item: 541 | Owner541 | Thing541 | Infrastructure Engineering | LOST
+Added item: 472 | Owner472 | Thing472 | Stop 1 | LOST
+Added item: 475 | Owner475 | Thing475 | Stop 1 | LOST
+Added item: 478 | Owner478 | Thing478 | Stop 1 | LOST
+Added item: 481 | Owner481 | Thing481 | Stop 1 | LOST
+Stats for LOCATION BST:
+> Total items: 52
+> Unique values: 3
+> Tree height: 34
+Added item: 415 | Owner415 | Thing415 | Stop 1 | FOUND
+Added item: 418 | Owner418 | Thing418 | Stop 1 | FOUND
+Added item: 421 | Owner421 | Thing421 | Stop 1 | FOUND
+Added item: 424 | Owner424 | Thing424 | Stop 1 | FOUND
+Added item: 427 | Owner427 | Thing427 | Old Arts | FOUND
+Added item: 430 | Owner430 | Thing430 | Old Arts | FOUND
+Stats for DESCRIPTION BST:
+> Total items: 58
+> Unique values: 58
+> Tree height: 29
+==== STAGE 3 ==============================================
+Query for 'OWNER Owner541' found the following matches:
+> 541 | Owner541 | Thing541 | Infrastructure Engineering | LOST
+Query for 'LOCATION Stop 1' found the following matches:
+> 403 | Owner403 | Thing403 | Stop 1 | FOUND
+> 406 | Owner406 | Thing406 | Stop 1 | FOUND
+> 409 | Owner409 | Thing409 | Stop 1 | FOUND
+> 412 | Owner412 | Thing412 | Stop 1 | FOUND
+> 460 | Owner460 | Thing460 | Stop 1 | LOST
+> 463 | Owner463 | Thing463 | Stop 1 | LOST
+> 466 | Owner466 | Thing466 | Stop 1 | LOST
+> 469 | Owner469 | Thing469 | Stop 1 | LOST
+> 484 | Owner484 | Thing484 | Stop 1 | LOST
+> 487 | Owner487 | Thing487 | Stop 1 | LOST
+> 490 | Owner490 | Thing490 | Stop 1 | LOST
+> 493 | Owner493 | Thing493 | Stop 1 | LOST
+> 496 | Owner496 | Thing496 | Stop 1 | LOST
+> 499 | Owner499 | Thing499 | Stop 1 | LOST
+> 502 | Owner502 | Thing502 | Stop 1 | LOST
+> 505 | Owner505 | Thing505 | Stop 1 | LOST
+> 508 | Owner508 | Thing508 | Stop 1 | LOST
+> 511 | Owner511 | Thing511 | Stop 1 | LOST
+> 514 | Owner514 | Thing514 | Stop 1 | LOST
+> 517 | Owner517 | Thing517 | Stop 1 | LOST
+> 547 | Owner547 | Thing547 | Stop 1 | LOST
+> 550 | Owner550 | Thing550 | Stop 1 | LOST
+> 553 | Owner553 | Thing553 | Stop 1 | LOST
+> 556 | Owner556 | Thing556 | Stop 1 | LOST
+> 559 | Owner559 | Thing559 | Stop 1 | LOST
+> 562 | Owner562 | Thing562 | Stop 1 | LOST
+> 565 | Owner565 | Thing565 | Stop 1 | LOST
+> 568 | Owner568 | Thing568 | Stop 1 | LOST
+> 571 | Owner571 | Thing571 | Stop 1 | FOUND
+> 574 | Owner574 | Thing574 | Stop 1 | FOUND
+> 472 | Owner472 | Thing472 | Stop 1 | LOST
+> 475 | Owner475 | Thing475 | Stop 1 | LOST
+> 478 | Owner478 | Thing478 | Stop 1 | LOST
+> 481 | Owner481 | Thing481 | Stop 1 | LOST
+> 415 | Owner415 | Thing415 | Stop 1 | FOUND
+> 418 | Owner418 | Thing418 | Stop 1 | FOUND
+> 421 | Owner421 | Thing421 | Stop 1 | FOUND
+> 424 | Owner424 | Thing424 | Stop 1 | FOUND
+Query for 'UID 571' found the following matches:
+> 571 | Owner571 | Thing571 | Stop 1 | FOUND
+Query for 'UID 574' found the following matches:
+> 574 | Owner574 | Thing574 | Stop 1 | FOUND
+==== STAGE 4 ==============================================
+Deleted item: 406 | Owner406 | Thing406 | Stop 1 | FOUND
+Printing sorted by DESCRIPTION:
+> 403 | Owner403 | Thing403 | Stop 1 | FOUND
+> 409 | Owner409 | Thing409 | Stop 1 | FOUND
+> 412 | Owner412 | Thing412 | Stop 1 | FOUND
+> 415 | Owner415 | Thing415 | Stop 1 | FOUND
+> 418 | Owner418 | Thing418 | Stop 1 | FOUND
+> 421 | Owner421 | Thing421 | Stop 1 | FOUND
+> 424 | Owner424 | Thing424 | Stop 1 | FOUND
+> 427 | Owner427 | Thing427 | Old Arts | FOUND
+> 430 | Owner430 | Thing430 | Old Arts | FOUND
+> 433 | Owner433 | Thing433 | Old Arts | FOUND
+> 436 | Owner436 | Thing436 | Old Arts | FOUND
+> 439 | Owner439 | Thing439 | Old Arts | FOUND
+> 442 | Owner442 | Thing442 | Old Arts | LOST
+> 445 | Owner445 | Thing445 | Old Arts | LOST
+> 448 | Owner448 | Thing448 | Old Arts | LOST
+> 451 | Owner451 | Thing451 | Old Arts | LOST
+> 454 | Owner454 | Thing454 | Old Arts | LOST
+> 457 | Owner457 | Thing457 | Old Arts | LOST
+> 460 | Owner460 | Thing460 | Stop 1 | LOST
+> 463 | Owner463 | Thing463 | Stop 1 | LOST
+> 466 | Owner466 | Thing466 | Stop 1 | LOST
+> 469 | Owner469 | Thing469 | Stop 1 | LOST
+> 472 | Owner472 | Thing472 | Stop 1 | LOST
+> 475 | Owner475 | Thing475 | Stop 1 | LOST
+> 478 | Owner478 | Thing478 | Stop 1 | LOST
+> 481 | Owner481 | Thing481 | Stop 1 | LOST
+> 484 | Owner484 | Thing484 | Stop 1 | LOST
+> 487 | Owner487 | Thing487 | Stop 1 | LOST
+> 490 | Owner490 | Thing490 | Stop 1 | LOST
+> 493 | Owner493 | Thing493 | Stop 1 | LOST
+> 496 | Owner496 | Thing496 | Stop 1 | LOST
+> 499 | Owner499 | Thing499 | Stop 1 | LOST
+> 502 | Owner502 | Thing502 | Stop 1 | LOST
+> 505 | Owner505 | Thing505 | Stop 1 | LOST
+> 508 | Owner508 | Thing508 | Stop 1 | LOST
+> 511 | Owner511 | Thing511 | Stop 1 | LOST
+> 514 | Owner514 | Thing514 | Stop 1 | LOST
+> 517 | Owner517 | Thing517 | Stop 1 | LOST
+> 520 | Owner520 | Thing520 | Infrastructure Engineering | LOST
+> 523 | Owner523 | Thing523 | Infrastructure Engineering | LOST
+> 526 | Owner526 | Thing526 | Infrastructure Engineering | LOST
+> 529 | Owner529 | Thing529 | Infrastructure Engineering | LOST
+> 532 | Owner532 | Thing532 | Infrastructure Engineering | LOST
+> 535 | Owner535 | Thing535 | Infrastructure Engineering | LOST
+> 538 | Owner538 | Thing538 | Infrastructure Engineering | LOST
+> 541 | Owner541 | Thing541 | Infrastructure Engineering | LOST
+> 544 | Owner544 | Thing544 | Infrastructure Engineering | LOST
+> 547 | Owner547 | Thing547 | Stop 1 | LOST
+> 550 | Owner550 | Thing550 | Stop 1 | LOST
+> 553 | Owner553 | Thing553 | Stop 1 | LOST
+> 556 | Owner556 | Thing556 | Stop 1 | LOST
+> 559 | Owner559 | Thing559 | Stop 1 | LOST
+> 562 | Owner562 | Thing562 | Stop 1 | LOST
+> 565 | Owner565 | Thing565 | Stop 1 | LOST
+> 568 | Owner568 | Thing568 | Stop 1 | LOST
+> 571 | Owner571 | Thing571 | Stop 1 | FOUND
+> 574 | Owner574 | Thing574 | Stop 1 | FOUND
+Deleted item: 541 | Owner541 | Thing541 | Infrastructure Engineering | LOST
+Printing sorted by UID:
+> 403 | Owner403 | Thing403 | Stop 1 | FOUND
+> 409 | Owner409 | Thing409 | Stop 1 | FOUND
+> 412 | Owner412 | Thing412 | Stop 1 | FOUND
+> 415 | Owner415 | Thing415 | Stop 1 | FOUND
+> 418 | Owner418 | Thing418 | Stop 1 | FOUND
+> 421 | Owner421 | Thing421 | Stop 1 | FOUND
+> 424 | Owner424 | Thing424 | Stop 1 | FOUND
+> 427 | Owner427 | Thing427 | Old Arts | FOUND
+> 430 | Owner430 | Thing430 | Old Arts | FOUND
+> 433 | Owner433 | Thing433 | Old Arts | FOUND
+> 436 | Owner436 | Thing436 | Old Arts | FOUND
+> 439 | Owner439 | Thing439 | Old Arts | FOUND
+> 442 | Owner442 | Thing442 | Old Arts | LOST
+> 445 | Owner445 | Thing445 | Old Arts | LOST
+> 448 | Owner448 | Thing448 | Old Arts | LOST
+> 451 | Owner451 | Thing451 | Old Arts | LOST
+> 454 | Owner454 | Thing454 | Old Arts | LOST
+> 457 | Owner457 | Thing457 | Old Arts | LOST
+> 460 | Owner460 | Thing460 | Stop 1 | LOST
+> 463 | Owner463 | Thing463 | Stop 1 | LOST
+> 466 | Owner466 | Thing466 | Stop 1 | LOST
+> 469 | Owner469 | Thing469 | Stop 1 | LOST
+> 472 | Owner472 | Thing472 | Stop 1 | LOST
+> 475 | Owner475 | Thing475 | Stop 1 | LOST
+> 478 | Owner478 | Thing478 | Stop 1 | LOST
+> 481 | Owner481 | Thing481 | Stop 1 | LOST
+> 484 | Owner484 | Thing484 | Stop 1 | LOST
+> 487 | Owner487 | Thing487 | Stop 1 | LOST
+> 490 | Owner490 | Thing490 | Stop 1 | LOST
+> 493 | Owner493 | Thing493 | Stop 1 | LOST
+> 496 | Owner496 | Thing496 | Stop 1 | LOST
+> 499 | Owner499 | Thing499 | Stop 1 | LOST
+> 502 | Owner502 | Thing502 | Stop 1 | LOST
+> 505 | Owner505 | Thing505 | Stop 1 | LOST
+> 508 | Owner508 | Thing508 | Stop 1 | LOST
+> 511 | Owner511 | Thing511 | Stop 1 | LOST
+> 514 | Owner514 | Thing514 | Stop 1 | LOST
+> 517 | Owner517 | Thing517 | Stop 1 | LOST
+> 520 | Owner520 | Thing520 | Infrastructure Engineering | LOST
+> 523 | Owner523 | Thing523 | Infrastructure Engineering | LOST
+> 526 | Owner526 | Thing526 | Infrastructure Engineering | LOST
+> 529 | Owner529 | Thing529 | Infrastructure Engineering | LOST
+> 532 | Owner532 | Thing532 | Infrastructure Engineering | LOST
+> 535 | Owner535 | Thing535 | Infrastructure Engineering | LOST
+> 538 | Owner538 | Thing538 | Infrastructure Engineering | LOST
+> 544 | Owner544 | Thing544 | Infrastructure Engineering | LOST
+> 547 | Owner547 | Thing547 | Stop 1 | LOST
+> 550 | Owner550 | Thing550 | Stop 1 | LOST
+> 553 | Owner553 | Thing553 | Stop 1 | LOST
+> 556 | Owner556 | Thing556 | Stop 1 | LOST
+> 559 | Owner559 | Thing559 | Stop 1 | LOST
+> 562 | Owner562 | Thing562 | Stop 1 | LOST
+> 565 | Owner565 | Thing565 | Stop 1 | LOST
+> 568 | Owner568 | Thing568 | Stop 1 | LOST
+> 571 | Owner571 | Thing571 | Stop 1 | FOUND
+> 574 | Owner574 | Thing574 | Stop 1 | FOUND
+Deleted item: 421 | Owner421 | Thing421 | Stop 1 | FOUND
+Deleted item: 424 | Owner424 | Thing424 | Stop 1 | FOUND
+Deleted item: 427 | Owner427 | Thing427 | Old Arts | FOUND
+Printing sorted by OWNER:
+> 403 | Owner403 | Thing403 | Stop 1 | FOUND
+> 409 | Owner409 | Thing409 | Stop 1 | FOUND
+> 412 | Owner412 | Thing412 | Stop 1 | FOUND
+> 415 | Owner415 | Thing415 | Stop 1 | FOUND
+> 418 | Owner418 | Thing418 | Stop 1 | FOUND
+> 430 | Owner430 | Thing430 | Old Arts | FOUND
+> 433 | Owner433 | Thing433 | Old Arts | FOUND
+> 436 | Owner436 | Thing436 | Old Arts | FOUND
+> 439 | Owner439 | Thing439 | Old Arts | FOUND
+> 442 | Owner442 | Thing442 | Old Arts | LOST
+> 445 | Owner445 | Thing445 | Old Arts | LOST
+> 448 | Owner448 | Thing448 | Old Arts | LOST
+> 451 | Owner451 | Thing451 | Old Arts | LOST
+> 454 | Owner454 | Thing454 | Old Arts | LOST
+> 457 | Owner457 | Thing457 | Old Arts | LOST
+> 460 | Owner460 | Thing460 | Stop 1 | LOST
+> 463 | Owner463 | Thing463 | Stop 1 | LOST
+> 466 | Owner466 | Thing466 | Stop 1 | LOST
+> 469 | Owner469 | Thing469 | Stop 1 | LOST
+> 472 | Owner472 | Thing472 | Stop 1 | LOST
+> 475 | Owner475 | Thing475 | Stop 1 | LOST
+> 478 | Owner478 | Thing478 | Stop 1 | LOST
+> 481 | Owner481 | Thing481 | Stop 1 | LOST
+> 484 | Owner484 | Thing484 | Stop 1 | LOST
+> 487 | Owner487 | Thing487 | Stop 1 | LOST
+> 490 | Owner490 | Thing490 | Stop 1 | LOST
+> 493 | Owner493 | Thing493 | Stop 1 | LOST
+> 496 | Owner496 | Thing496 | Stop 1 | LOST
+> 499 | Owner499 | Thing499 | Stop 1 | LOST
+> 502 | Owner502 | Thing502 | Stop 1 | LOST
+> 505 | Owner505 | Thing505 | Stop 1 | LOST
+> 508 | Owner508 | Thing508 | Stop 1 | LOST
+> 511 | Owner511 | Thing511 | Stop 1 | LOST
+> 514 | Owner514 | Thing514 | Stop 1 | LOST
+> 517 | Owner517 | Thing517 | Stop 1 | LOST
+> 520 | Owner520 | Thing520 | Infrastructure Engineering | LOST
+> 523 | Owner523 | Thing523 | Infrastructure Engineering | LOST
+> 526 | Owner526 | Thing526 | Infrastructure Engineering | LOST
+> 529 | Owner529 | Thing529 | Infrastructure Engineering | LOST
+> 532 | Owner532 | Thing532 | Infrastructure Engineering | LOST
+> 535 | Owner535 | Thing535 | Infrastructure Engineering | LOST
+> 538 | Owner538 | Thing538 | Infrastructure Engineering | LOST
+> 544 | Owner544 | Thing544 | Infrastructure Engineering | LOST
+> 547 | Owner547 | Thing547 | Stop 1 | LOST
+> 550 | Owner550 | Thing550 | Stop 1 | LOST
+> 553 | Owner553 | Thing553 | Stop 1 | LOST
+> 556 | Owner556 | Thing556 | Stop 1 | LOST
+> 559 | Owner559 | Thing559 | Stop 1 | LOST
+> 562 | Owner562 | Thing562 | Stop 1 | LOST
+> 565 | Owner565 | Thing565 | Stop 1 | LOST
+> 568 | Owner568 | Thing568 | Stop 1 | LOST
+> 571 | Owner571 | Thing571 | Stop 1 | FOUND
+> 574 | Owner574 | Thing574 | Stop 1 | FOUND
+==== STAGE 5 ==============================================
+Updated item with UID 415 to: 415 | Owner415 | Thing415 | Stop 1 | FOUND
+Updated item with UID 565 to: 565 | Owner565 | Thing565 | Arts West | LOST
+Updated item with UID 526 to: 526 | Owner526 | A green spiral bound notebook | Infrastructure Engineering | LOST
+Printing sorted by OWNER:
+> 403 | Owner403 | Thing403 | Stop 1 | FOUND
+> 409 | Owner409 | Thing409 | Stop 1 | FOUND
+> 412 | Owner412 | Thing412 | Stop 1 | FOUND
+> 415 | Owner415 | Thing415 | Stop 1 | FOUND
+> 418 | Owner418 | Thing418 | Stop 1 | FOUND
+> 430 | Owner430 | Thing430 | Old Arts | FOUND
+> 433 | Owner433 | Thing433 | Old Arts | FOUND
+> 436 | Owner436 | Thing436 | Old Arts | FOUND
+> 439 | Owner439 | Thing439 | Old Arts | FOUND
+> 442 | Owner442 | Thing442 | Old Arts | LOST
+> 445 | Owner445 | Thing445 | Old Arts | LOST
+> 448 | Owner448 | Thing448 | Old Arts | LOST
+> 451 | Owner451 | Thing451 | Old Arts | LOST
+> 454 | Owner454 | Thing454 | Old Arts | LOST
+> 457 | Owner457 | Thing457 | Old Arts | LOST
+> 460 | Owner460 | Thing460 | Stop 1 | LOST
+> 463 | Owner463 | Thing463 | Stop 1 | LOST
+> 466 | Owner466 | Thing466 | Stop 1 | LOST
+> 469 | Owner469 | Thing469 | Stop 1 | LOST
+> 472 | Owner472 | Thing472 | Stop 1 | LOST
+> 475 | Owner475 | Thing475 | Stop 1 | LOST
+> 478 | Owner478 | Thing478 | Stop 1 | LOST
+> 481 | Owner481 | Thing481 | Stop 1 | LOST
+> 484 | Owner484 | Thing484 | Stop 1 | LOST
+> 487 | Owner487 | Thing487 | Stop 1 | LOST
+> 490 | Owner490 | Thing490 | Stop 1 | LOST
+> 493 | Owner493 | Thing493 | Stop 1 | LOST
+> 496 | Owner496 | Thing496 | Stop 1 | LOST
+> 499 | Owner499 | Thing499 | Stop 1 | LOST
+> 502 | Owner502 | Thing502 | Stop 1 | LOST
+> 505 | Owner505 | Thing505 | Stop 1 | LOST
+> 508 | Owner508 | Thing508 | Stop 1 | LOST
+> 511 | Owner511 | Thing511 | Stop 1 | LOST
+> 514 | Owner514 | Thing514 | Stop 1 | LOST
+> 517 | Owner517 | Thing517 | Stop 1 | LOST
+> 520 | Owner520 | Thing520 | Infrastructure Engineering | LOST
+> 523 | Owner523 | Thing523 | Infrastructure Engineering | LOST
+> 526 | Owner526 | A green spiral bound notebook | Infrastructure Engineering | LOST
+> 529 | Owner529 | Thing529 | Infrastructure Engineering | LOST
+> 532 | Owner532 | Thing532 | Infrastructure Engineering | LOST
+> 535 | Owner535 | Thing535 | Infrastructure Engineering | LOST
+> 538 | Owner538 | Thing538 | Infrastructure Engineering | LOST
+> 544 | Owner544 | Thing544 | Infrastructure Engineering | LOST
+> 547 | Owner547 | Thing547 | Stop 1 | LOST
+> 550 | Owner550 | Thing550 | Stop 1 | LOST
+> 553 | Owner553 | Thing553 | Stop 1 | LOST
+> 556 | Owner556 | Thing556 | Stop 1 | LOST
+> 559 | Owner559 | Thing559 | Stop 1 | LOST
+> 562 | Owner562 | Thing562 | Stop 1 | LOST
+> 565 | Owner565 | Thing565 | Arts West | LOST
+> 568 | Owner568 | Thing568 | Stop 1 | LOST
+> 571 | Owner571 | Thing571 | Stop 1 | FOUND
+> 574 | Owner574 | Thing574 | Stop 1 | FOUND
+QUITTING
