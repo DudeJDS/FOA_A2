@@ -258,14 +258,32 @@ void free_item(item_t *item) {
     free(item->location);
     free(item);
 }
-// FORCE CHANGE 123
+
 /*====================== STAGE  1 ======================== */
+/* Visually our registry looks like this (leaving out a few item descriptors for simplicity)
+           registry
+          /   |   \
+         /    |    \
+      UID   OWNER  LOCATION 
+      BST    BST      BST
+    Each BST is sorted differently, BUT they all contain the same items*/
+
 void registry_command_add(registry_t *reg, char *command_str) {
-    char *properties[NUM_ITEM_PROPERTIES];
+    /*Goal of function:
+    (1) Extract values from command_str
+    (2) Create item
+    (3) Create BST node
+    (4) Print success*/
+
+    char *properties[NUM_ITEM_PROPERTIES]; // Array of pointers to characters
     size_t curr_token_start_index = 0;
     int i = 0;
 
-    /* The input format requires parsing 6 values*/
+    /* The input format requires parsing 6 values
+    What the loop does: loops through properties s.t.
+    properties[0] = uid
+    properties[1] = owner
+    properties[2] = description... and so on*/
     char *tok;
     while (i < NUM_ITEM_PROPERTIES) {
         tok = tokenize_string(command_str, &curr_token_start_index,
@@ -276,7 +294,7 @@ void registry_command_add(registry_t *reg, char *command_str) {
 
     int uid = atoi(properties[ITEM_ID_IDX]);
     free(properties[ITEM_ID_IDX]);
-    status_t status = parse_status(properties[ITEM_STATUS_IDX]);
+    status_t status = parse_status(properties[ITEM_STATUS_IDX]); // "LOST" -> STATUS_LOST
     free(properties[ITEM_STATUS_IDX]);
 
     char *owner = properties[ITEM_OWNER_IDX];
@@ -285,7 +303,16 @@ void registry_command_add(registry_t *reg, char *command_str) {
 
     item_t *item = create_item(uid, owner, description, location, status);
     bst_node_t *node = create_bst_node(item);
-    if (node != NULL) {
+
+    /* Memory is now s.t. (visually)
+      node
+        └── item
+              ├── uid
+              ├── owner
+              ├── description
+              └── ...
+    */
+    if (node != NULL) { 
         /*
         TODO:
         - Insert the newly created node into the BST for each attribute from
@@ -297,10 +324,60 @@ void registry_command_add(registry_t *reg, char *command_str) {
         Note: You may wish to start by implementing your code for only the UID
               BST (which is index 0)
         */
-    }
+        /* Empty tree case */
+        /* Recalling:
+        bst_node_t *bst_root_arr[NUM_ITEM_PROPERTIES]; is an array of ROOT POINTERS for the BSTs
+        bst_root_arr[0] = root of UID BST
+        bst_root_arr[1] = root of OWNER BST
+        bst_root_arr[2] = root of DESCRIPTION BST
+        bst_root_arr[3] = root of LOCATION BST
+        bst_root_arr[4] = root of STATUS BST */
+        if (reg->bst_root_arr[ITEM_ID_IDX] == NULL){ // ITEM_ID_IDX = 0 => looking at root of UID BST
+            reg->bst_root_arr[ITEM_ID_IDX] = node;
+        } else {
+            bst_node_t *curr = reg->bst_root_arr[ITEM_ID_IDX]; // Start traversal (comparison) at root of BST
 
-    printf(ADD_FAIL_STR, item->uid);
-    free_bst_node(node);
+            while (1) { // Break when we insert item into a node
+
+                /* Duplicate uid */
+                if (item->uid == curr->item->uid){
+                    printf(ADD_FAIL_STR, item->uid);
+                    free_bst_node(node);
+                    return;
+                }
+
+                /* Going left */
+                if (item->uid < curr->item->uid){
+
+                    // if no left child exists, insert node here
+                    if (curr->left_arr[ITEM_ID_IDX] == NULL){
+                        curr->left_arr[ITEM_ID_IDX] = node;
+                        break;
+                    }
+
+                    // Otherwise move left
+                    curr = curr->left_arr[ITEM_ID_IDX];
+                } else /* Going right */ {
+
+                    // If no right child exists, insert node here
+                    if (curr->right_arr[ITEM_ID_IDX] == NULL){
+                        curr->right_arr[ITEM_ID_IDX] = node;
+                        break;
+                    }
+
+                    // Otherwise move right 
+                    curr = curr->right_arr[ITEM_ID_IDX];
+                }
+
+        }
+    }
+    reg->bst_node_count++;
+    printf(ADD_SUCCESS_STR, item->uid);
+    print_item_line(item);
+    
+} else {
+    return;
+}
 }
 
 void registry_command_print(registry_t *reg, char *command_str) {
