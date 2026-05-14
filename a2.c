@@ -165,7 +165,7 @@ when it is implemented. (Commented out to start so it compiles)
 */
 void process_line(registry_t *reg, char *line) {
     if (strncmp(line, "ADD ", 4) == 0) {
-        // registry_command_add(reg, line + 4);
+        registry_command_add(reg, line + 4);
     } else if (strncmp(line, "QUERY ", 6) == 0) {
         // registry_command_query(reg, line + 6);
     } else if (strncmp(line, "UPDATE ", 7) == 0) {
@@ -238,8 +238,8 @@ item_t *create_item(int uid, char *owner, char *description, char *location,
     
     /* For string values we remind ourselves that strings are just pointers to memory => og. memory may not stay valid. So we duplicate them! */
     item->owner = duplicate_string(owner, strlen(owner));
-    item->description = duplicate_string(description, str_len(description));
-    item->location = duplicate_string(location, str_len(location));
+    item->description = duplicate_string(description, strlen(description));
+    item->location = duplicate_string(location, strlen(location));
 
     // Finally return our item
     return item;
@@ -254,7 +254,7 @@ void free_item(item_t *item) {
     (4) location 
     So we will free everything owned by item starting by freeing internal heap memory first... then freeing outer struct last*/
     free(item->owner);
-    free(item->description)
+    free(item->description);
     free(item->location);
     free(item);
 }
@@ -337,7 +337,7 @@ void registry_command_add(registry_t *reg, char *command_str) {
         } else {
             bst_node_t *curr = reg->bst_root_arr[ITEM_ID_IDX]; // Start traversal (comparison) at root of BST
 
-            while (1) { // Break when we insert item into a node
+            while (1) { // Break when we insert node into BST
 
                 /* Duplicate uid */
                 if (item->uid == curr->item->uid){
@@ -357,6 +357,7 @@ void registry_command_add(registry_t *reg, char *command_str) {
 
                     // Otherwise move left
                     curr = curr->left_arr[ITEM_ID_IDX];
+
                 } else /* Going right */ {
 
                     // If no right child exists, insert node here
@@ -368,16 +369,15 @@ void registry_command_add(registry_t *reg, char *command_str) {
                     // Otherwise move right 
                     curr = curr->right_arr[ITEM_ID_IDX];
                 }
-
+            }
         }
+        // Successful insertion of node
+        reg->bst_node_count++;
+        printf(ADD_SUCCESS_STR);
+        print_item_line(item);    
+    } else {
+        return;
     }
-    reg->bst_node_count++;
-    printf(ADD_SUCCESS_STR, item->uid);
-    print_item_line(item);
-    
-} else {
-    return;
-}
 }
 
 void registry_command_print(registry_t *reg, char *command_str) {
