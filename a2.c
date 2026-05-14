@@ -128,6 +128,7 @@ void trim_newline(char *s);
 void print_item_line(const item_t *item);
 char *duplicate_string(const char *str, int str_len);
 char *tokenize_string(const char *str, size_t *token_start_index, char *delim);
+void print_in_order(bst_node_t *root, int attribute_index);
 
 /*==========================================================*
  *                        MAIN LOGIC                         *
@@ -332,45 +333,52 @@ void registry_command_add(registry_t *reg, char *command_str) {
         bst_root_arr[2] = root of DESCRIPTION BST
         bst_root_arr[3] = root of LOCATION BST
         bst_root_arr[4] = root of STATUS BST */
-        if (reg->bst_root_arr[ITEM_ID_IDX] == NULL){ // ITEM_ID_IDX = 0 => looking at root of UID BST
-            reg->bst_root_arr[ITEM_ID_IDX] = node;
-        } else {
-            bst_node_t *curr = reg->bst_root_arr[ITEM_ID_IDX]; // Start traversal (comparison) at root of BST
+        int attribute_index;
+        for (attribute_index = 0; attribute_index < NUM_ITEM_PROPERTIES; attribute_index++){
+            // Case where root of BST doesnt exist
+            if (reg->bst_root_arr[attribute_index] == NULL){ // attribute_index = 0 => looking at root of UID BST... etc
+                reg->bst_root_arr[attribute_index] = node;
+            } else {
+                bst_node_t *curr = reg->bst_root_arr[attribute_index]; // Start traversal (comparison) at root of BST
 
-            while (1) { // Break when we insert node into BST
+                while (1) { // Break when we insert node into BST
+                    // Create a value for our comparison for our Dupe / left / right logic
+                    int cmp = reg->item_cmp_functions[attribute_index](item,curr->item);
 
-                /* Duplicate uid */
-                if (item->uid == curr->item->uid){
-                    printf(ADD_FAIL_STR, item->uid);
-                    free_bst_node(node);
-                    return;
-                }
-
-                /* Going left */
-                if (item->uid < curr->item->uid){
-
-                    // if no left child exists, insert node here
-                    if (curr->left_arr[ITEM_ID_IDX] == NULL){
-                        curr->left_arr[ITEM_ID_IDX] = node;
-                        break;
+                    /* Duplicate uid */
+                    if ((cmp == 0) && (attribute_index == ITEM_ID_IDX)){ // UID equality means duped item, thus, we dont want it. But we can have cmp = 0 and not be a duped item (cmp func for owner per say = 0 is fine because same person might lose mult things)
+                        printf(ADD_FAIL_STR, item->uid);
+                        free_bst_node(node);
+                        return;
                     }
 
-                    // Otherwise move left
-                    curr = curr->left_arr[ITEM_ID_IDX];
+                    /* Going left */
+                    if (cmp < 0){
 
-                } else /* Going right */ {
+                        // if no left child exists, insert node here
+                        if (curr->left_arr[attribute_index] == NULL){
+                            curr->left_arr[attribute_index] = node;
+                            break;
+                        }
 
-                    // If no right child exists, insert node here
-                    if (curr->right_arr[ITEM_ID_IDX] == NULL){
-                        curr->right_arr[ITEM_ID_IDX] = node;
-                        break;
+                        // Otherwise move left
+                        curr = curr->left_arr[attribute_index];
+
+                    } else /* Going right i.e. cmp > 0*/ {
+
+                        // If no right child exists, insert node here
+                        if (curr->right_arr[attribute_index] == NULL){
+                            curr->right_arr[attribute_index] = node;
+                            break;
+                        }
+
+                        // Otherwise move right 
+                        curr = curr->right_arr[attribute_index];
                     }
-
-                    // Otherwise move right 
-                    curr = curr->right_arr[ITEM_ID_IDX];
                 }
             }
         }
+
         // Successful insertion of node
         reg->bst_node_count++;
         printf(ADD_SUCCESS_STR);
@@ -422,6 +430,7 @@ void registry_command_query(registry_t *reg, char *command_str) {
 
     /* TODO: Print all the records matching the query type using the
      * corresponding BST */
+    printf()
 }
 
 /*====================== STAGE  4 ======================== */
@@ -704,4 +713,8 @@ char *tokenize_string(const char *str, size_t *token_start_index, char *delim) {
     /* adjust the start index to get the next token */
     *token_start_index += token_len + 1;
     return copy;
+}
+
+void print_in_order(bst_node_t *root, int attribute_index){
+    
 }
