@@ -39,7 +39,7 @@
 #define STATS_LINE_STR "Stats for %s BST:\n"
 #define STATS_TOTAL_ITEMS "> Total items: %d\n"
 #define STATS_LOST_ITEMS "> Lost items: %d\n"
-#define STATS_UNIQUE_PROPERTIES "> Unique Properties: %d\n"
+#define STATS_UNIQUE_VALUES "> Unique values: %d\n"
 #define STATS_TREE_HEIGHT "> Tree height: %d\n"
 #define UPDATE_SUCCESS_STR "Updated item with UID %d to: "
 #define UPDATE_FAILURE_STR "Item with UID %d not updated as it was not found\n"
@@ -129,6 +129,7 @@ void print_item_line(const item_t *item);
 char *duplicate_string(const char *str, int str_len);
 char *tokenize_string(const char *str, size_t *token_start_index, char *delim);
 void print_in_order(bst_node_t *root, int attribute_index);
+int count_total_nodes(bst_node_t *root, int attribute_index);
 
 /*==========================================================*
  *                        MAIN LOGIC                         *
@@ -410,6 +411,38 @@ void registry_command_stats(registry_t *reg, char *command_str) {
     /* TODO: Print the total number of items in the BST, the number of unique
      * values of the given attribute type, and the height of the tree. In the
      * case of the status attribute, also print the number of lost items. */
+
+    // Must extract which item property is the subject of the query
+    size_t curr_token_start_index = 0;
+    char * query_type = 
+        tokenize_string(command_str, &curr_token_start_index, COMMAND_DELIM);
+    assert(query_type != NULL);
+    int attribute_index = attribute_string_to_attribute_index(query_type);
+
+    bst_node_t *root_node = reg->bst_root_arr[attribute_index];
+    // Print generic stats line
+    printf(STATS_LINE_STR, query_type);
+
+    // Case: Empty BST
+    if (root_node == NULL){
+        printf(STATS_TOTAL_ITEMS, 0);
+        printd(STATS_UNIQUE_VALUES, 0);
+        printf(STATS_TREE_HEIGHT, 0);
+    }
+
+    /* Calculating total items */
+    int total_item_cnt;
+    total_item_cnt = count_total_nodes(root_node, attribute_index);
+    printf(STATS_TOTAL_ITEMS, total_item_cnt);
+
+    /* Calculating unique items */
+    int unique_item_cnt;
+
+    /* Calculating tree height */
+    int tree_height;
+    tree_height = count_tree_height(root_node, attribute_index);
+    printf(STATS_TREE_HEIGHT, tree_height);
+
 }
 
 /*====================== STAGE  3 ======================== */
@@ -729,4 +762,40 @@ void print_in_order(bst_node_t *root, int attribute_index){
 
     // Print right subtree using recursion AFTER!
     print_in_order(root->right_arr[attribute_index], attribute_index);
+}
+
+int count_total_nodes(bst_node_t *root, int attribute_index){
+    // Using recursion to make sure ALL subtrees are counted
+    if (root == NULL){
+        return 0;
+    }
+
+    return 1 + count_total_nodes(root->left_arr[attribute_index], attribute_index);
+             + count_total_nodes(root->right_arr[attribute_index], attribute_index);
+}
+
+/* int count_unique_vals(bst_node_t *root, int attribute_index){
+    // Use recursion to check all nodes on the tree
+    if (root == NULL){
+        return 0;
+    }
+
+    bst_node_t *left_node = root->left_arr[attribute_index];
+    bst_node_t *right_node = root->right_arr[attribute_index];
+
+    if (item_cmp_functions[attribute_index](left_node->item, root) != 0){
+
+    }
+} */
+
+int count_tree_height(bst_node_t *root, int attribute_index){
+    // Use recursion to count the number of traversals 
+    if (root == NULL){
+        return 0;
+    }
+
+    int left_height = count_tree_height(root->left_arr[attribute_index], attribute_index);
+    int right_height = count_tree_height(root->right_arr[attribute_index], attribute_index);
+
+    return 1 + (left_height > right_height ? left_height : right_height);
 }
