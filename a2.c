@@ -172,7 +172,7 @@ void process_line(registry_t *reg, char *line) {
     } else if (strncmp(line, "UPDATE ", 7) == 0) {
         // registry_command_update(reg, line + 7);
     } else if (strncmp(line, "PRINT ", 6) == 0) {
-        // registry_command_print(reg, line + 6);
+        registry_command_print(reg, line + 6);
     } else if (strncmp(line, "STATS ", 6) == 0) {
         // registry_command_stats(reg, line + 6);
     } else if (strncmp(line, "DELETE ", 7) == 0) {
@@ -395,11 +395,13 @@ void registry_command_print(registry_t *reg, char *command_str) {
     assert(query_type != NULL);
     int attribute_index = attribute_string_to_attribute_index(query_type);
 
-    // Suppress compilation warning until function is implemented
-    (void)attribute_index;
+     // Printing our heading
+     printf(PRINT_STR, query_type);
 
-    /* TODO: Print the registry output in sorted order based on the
-     * attribute_index */
+     // Start from the root of queried BST
+     bst_node_t *root_node = reg->bst_root_arr[attribute_index];
+
+     print_in_order(root_node, attribute_index);
 }
 
 /*====================== STAGE  2 ======================== */
@@ -430,7 +432,7 @@ void registry_command_query(registry_t *reg, char *command_str) {
 
     /* TODO: Print all the records matching the query type using the
      * corresponding BST */
-    printf()
+    //printf()
 }
 
 /*====================== STAGE  4 ======================== */
@@ -716,5 +718,15 @@ char *tokenize_string(const char *str, size_t *token_start_index, char *delim) {
 }
 
 void print_in_order(bst_node_t *root, int attribute_index){
-    
+    if (root == NULL){
+        return;
+    }
+    // Print left subtree first using recursion FIRST!
+    print_in_order(root->left_arr[attribute_index], attribute_index);
+
+    // Print current node
+    print_item_line(root->item);
+
+    // Print right subtree using recursion AFTER!
+    print_in_order(root->right_arr[attribute_index], attribute_index);
 }
