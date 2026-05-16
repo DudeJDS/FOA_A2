@@ -130,6 +130,8 @@ char *duplicate_string(const char *str, int str_len);
 char *tokenize_string(const char *str, size_t *token_start_index, char *delim);
 void print_in_order(bst_node_t *root, int attribute_index);
 int count_total_nodes(bst_node_t *root, int attribute_index);
+void count_unique_vals(bst_node_t *root, int attribute_index, item_t **prev_item, int *cnt);
+int count_tree_height(bst_node_t *root, int attribute_index);
 
 /*==========================================================*
  *                        MAIN LOGIC                         *
@@ -436,7 +438,10 @@ void registry_command_stats(registry_t *reg, char *command_str) {
     printf(STATS_TOTAL_ITEMS, total_item_cnt);
 
     /* Calculating unique items */
-    int unique_item_cnt;
+    int unique_item_cnt = 0;
+    item_t *prev_item == NULL;
+    count_unique_vals(root, attribute_index, prev_item, unique_item_cnt)
+    printf(STATS_UNIQUE_VALUES, unique_item_cnt);
 
     /* Calculating tree height */
     int tree_height;
@@ -774,19 +779,26 @@ int count_total_nodes(bst_node_t *root, int attribute_index){
              + count_total_nodes(root->right_arr[attribute_index], attribute_index);
 }
 
-/* int count_unique_vals(bst_node_t *root, int attribute_index){
-    // Use recursion to check all nodes on the tree
-    if (root == NULL){
-        return 0;
+void count_unique_vals(bst_node_t *root, int attribute_index, item_t **prev_item, int *cnt){
+    // Special case/s (UID, empty tree)
+    if (attribute_index == 0){
+        *cnt = count_total_nodes(root, attribute_index);
+        return;
+    } else if (root == NULL){
+        return;
     }
 
-    bst_node_t *left_node = root->left_arr[attribute_index];
-    bst_node_t *right_node = root->right_arr[attribute_index];
-
-    if (item_cmp_functions[attribute_index](left_node->item, root) != 0){
-
+    if (root->item == prev_item){
+        *cnt++;
+        prev_item = root->item;
     }
-} */
+
+    // Check left subtree
+    count_unique_vals(root->left_arr[attribute_index], attribute_index, prev_item, cnt)
+
+    
+
+}
 
 int count_tree_height(bst_node_t *root, int attribute_index){
     // Use recursion to count the number of traversals 
