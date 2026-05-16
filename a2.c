@@ -788,14 +788,27 @@ void count_unique_vals(bst_node_t *root, int attribute_index, item_t **prev_item
         return;
     }
 
-    if (root->item == prev_item){
-        *cnt++;
-        prev_item = root->item;
+    // Traverse left sub-tree first
+    count_unique_vals(root->left_arr[attribute_index], attribute_index, prev_item, cnt);
+
+    /* Here:
+    diff = 0 => not different
+    diff = 1 => different */
+    int diff = 0;
+
+    // Check to see if prev_item is NULL (first item is always unique)
+    if (*prev_item == NULL){
+        diff = 1;
+    } else {
+        // COPY PLS!!!!! use chat loads tn
+        switch(attribute_index){
+            case ITEM_OWNER_IDX:
+                if (strcmp(root->item->owner, (*prev_item)->owner) != 0){
+                    diff = 1;
+                }
+
+        }
     }
-
-    // Check left subtree
-    count_unique_vals(root->left_arr[attribute_index], attribute_index, prev_item, cnt)
-
     
 
 }
