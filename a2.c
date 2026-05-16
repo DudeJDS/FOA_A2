@@ -132,6 +132,7 @@ void print_in_order(bst_node_t *root, int attribute_index);
 int count_total_nodes(bst_node_t *root, int attribute_index);
 void count_unique_vals(bst_node_t *root, int attribute_index, item_t **prev_item, int *cnt);
 int count_tree_height(bst_node_t *root, int attribute_index);
+void query_bst(bst_node_t *root, int attribute_index, char *query_str);
 
 /*==========================================================*
  *                        MAIN LOGIC                         *
@@ -171,13 +172,13 @@ void process_line(registry_t *reg, char *line) {
     if (strncmp(line, "ADD ", 4) == 0) {
         registry_command_add(reg, line + 4);
     } else if (strncmp(line, "QUERY ", 6) == 0) {
-        // registry_command_query(reg, line + 6);
+        registry_command_query(reg, line + 6);
     } else if (strncmp(line, "UPDATE ", 7) == 0) {
         // registry_command_update(reg, line + 7);
     } else if (strncmp(line, "PRINT ", 6) == 0) {
         registry_command_print(reg, line + 6);
     } else if (strncmp(line, "STATS ", 6) == 0) {
-        // registry_command_stats(reg, line + 6);
+        registry_command_stats(reg, line + 6);
     } else if (strncmp(line, "DELETE ", 7) == 0) {
         // registry_command_delete(reg, line + 7);
     } else {
@@ -410,10 +411,6 @@ void registry_command_print(registry_t *reg, char *command_str) {
 /*====================== STAGE  2 ======================== */
 
 void registry_command_stats(registry_t *reg, char *command_str) {
-    /* TODO: Print the total number of items in the BST, the number of unique
-     * values of the given attribute type, and the height of the tree. In the
-     * case of the status attribute, also print the number of lost items. */
-
     // Must extract which item property is the subject of the query
     size_t curr_token_start_index = 0;
     char * query_type = 
@@ -421,33 +418,33 @@ void registry_command_stats(registry_t *reg, char *command_str) {
     assert(query_type != NULL);
     int attribute_index = attribute_string_to_attribute_index(query_type);
 
-    bst_node_t *root_node = reg->bst_root_arr[attribute_index];
+    bst_node_t *root = reg->bst_root_arr[attribute_index];
     // Print generic stats line
     printf(STATS_LINE_STR, query_type);
 
     // Case: Empty BST
-    if (root_node == NULL){
+    if (root == NULL){
         printf(STATS_TOTAL_ITEMS, 0);
-        printd(STATS_UNIQUE_VALUES, 0);
+        printf(STATS_UNIQUE_VALUES, 0);
         printf(STATS_TREE_HEIGHT, 0);
+        return;
     }
 
     /* Calculating total items */
     int total_item_cnt;
-    total_item_cnt = count_total_nodes(root_node, attribute_index);
+    total_item_cnt = count_total_nodes(root, attribute_index);
     printf(STATS_TOTAL_ITEMS, total_item_cnt);
 
     /* Calculating unique items */
     int unique_item_cnt = 0;
-    item_t *prev_item == NULL;
-    count_unique_vals(root, attribute_index, prev_item, unique_item_cnt)
+    item_t *prev_item = NULL;
+    count_unique_vals(root, attribute_index, &prev_item, &unique_item_cnt);
     printf(STATS_UNIQUE_VALUES, unique_item_cnt);
 
     /* Calculating tree height */
     int tree_height;
-    tree_height = count_tree_height(root_node, attribute_index);
+    tree_height = count_tree_height(root, attribute_index);
     printf(STATS_TREE_HEIGHT, tree_height);
-
 }
 
 /*====================== STAGE  3 ======================== */
@@ -464,13 +461,9 @@ void registry_command_query(registry_t *reg, char *command_str) {
     assert(query_str != NULL);
 
     int attribute_index = attribute_string_to_attribute_index(query_type);
-
-    // Suppress compilation warning until function is implemented
-    (void)attribute_index;
-
-    /* TODO: Print all the records matching the query type using the
-     * corresponding BST */
-    //printf()
+    
+    bst_node_t *root = reg->bst_root_arr[attribute_index];
+    query_bst(root, attribute_index, query_str);
 }
 
 /*====================== STAGE  4 ======================== */
@@ -775,23 +768,29 @@ int count_total_nodes(bst_node_t *root, int attribute_index){
         return 0;
     }
 
-    return 1 + count_total_nodes(root->left_arr[attribute_index], attribute_index);
+    return 1 + count_total_nodes(root->left_arr[attribute_index], attribute_index)
              + count_total_nodes(root->right_arr[attribute_index], attribute_index);
 }
 
 void count_unique_vals(bst_node_t *root, int attribute_index, item_t **prev_item, int *cnt){
+    // Stop segfault from happening in line 797 (make recursion do-able)
+    if (root == NULL){
+        return;
+    }
+
     // Special case/s (UID, empty tree)
     if (attribute_index == 0){
         *cnt = count_total_nodes(root, attribute_index);
         return;
-    } else if (root == NULL){
-        return;
-    }
+    } 
 
     // Traverse left sub-tree first
+    /* Here we traverse the left sub trees first (untill all left branches have been traversed through) because our
+    BST is sorted with lower vals on the left. Therefore, because we want to check whether adjacent sorted vals are 
+    unique we first start at lowest ("left-lowest" branch) */
     count_unique_vals(root->left_arr[attribute_index], attribute_index, prev_item, cnt);
 
-    /* Here:
+    /* Check current s.t. here:
     diff = 0 => not different
     diff = 1 => different */
     int diff = 0;
@@ -800,17 +799,49 @@ void count_unique_vals(bst_node_t *root, int attribute_index, item_t **prev_item
     if (*prev_item == NULL){
         diff = 1;
     } else {
-        // COPY PLS!!!!! use chat loads tn
+        
         switch(attribute_index){
+            // Owner
             case ITEM_OWNER_IDX:
                 if (strcmp(root->item->owner, (*prev_item)->owner) != 0){
                     diff = 1;
                 }
+            break;
 
+            // Description
+            case ITEM_DESCRIPTION_IDX:
+                if (strcmp(root->item->description, (*prev_item)->description) != 0){
+                    diff = 1;
+                }
+            break;
+
+            // Location
+            case ITEM_LOCATION_IDX:
+                if (strcmp(root->item->location, (*prev_item)->location) != 0){
+                    diff = 1;
+                }
+            break;
+            
+            // Status
+            // Note: status is an enum (which is integers) so no strcmp here
+            case ITEM_STATUS_IDX:
+                if (root->item->status != (*prev_item)->status){
+                    diff = 1;
+                }
+            break;
         }
     }
     
+    // Update count
+    if (diff){
+        (*cnt)++;
+    }
 
+    // Update previous item
+    *prev_item = root->item;
+
+    // Now we traverse right subtree
+    count_unique_vals(root->right_arr[attribute_index], attribute_index, prev_item, cnt);
 }
 
 int count_tree_height(bst_node_t *root, int attribute_index){
@@ -823,4 +854,60 @@ int count_tree_height(bst_node_t *root, int attribute_index){
     int right_height = count_tree_height(root->right_arr[attribute_index], attribute_index);
 
     return 1 + (left_height > right_height ? left_height : right_height);
+}
+
+void query_bst(bst_node_t *root, int attribute_index, char *query_str){
+    // End of the BST tree
+    if (root == NULL){
+        return;
+    }
+
+    // Traverse left tree first (printing in order)
+    query_bst(root->left_arr[attribute_index], attribute_index, query_str);
+
+    // Check current node
+    switch(attribute_index){
+        // UID check
+        case ITEM_ID_IDX:
+            if (root->item->uid == atoi(query_str)){
+                printf(QUERY_FOUND_STR, query_str);
+                print_item_line(root->item);
+            }
+        break;
+        
+        // Owner check
+        case ITEM_OWNER_IDX:
+            if (strcmp(root->item->owner, query_str) == 0){
+                printf(QUERY_FOUND_STR, query_str);
+                print_item_line(root->item);
+            }
+        break;
+
+        // Description check
+        case ITEM_DESCRIPTION_IDX:
+            if (strcmp(root->item->description, query_str) == 0){
+                printf(QUERY_FOUND_STR, query_str);
+                print_item_line(root->item);
+            }
+        break;
+
+        // Location check
+        case ITEM_LOCATION_IDX:
+            if (strcmp(root->item->location, query_str) == 0){
+                printf(QUERY_FOUND_STR, query_str);
+                print_item_line(root->item);
+            }
+        break;
+
+        // Status check
+        case ITEM_STATUS_IDX:
+            if (root->item->status == parse_status(query_str)){
+                printf(QUERY_FOUND_STR,query_str);
+                print_item_line(root->item);
+            }
+        break;
+    }
+
+    // Now traverse right tree
+    query_bst(root->right_arr[attribute_index], attribute_index, query_str);
 }
