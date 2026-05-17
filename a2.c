@@ -134,6 +134,7 @@ void count_unique_vals(bst_node_t *root, int attribute_index, item_t **prev_item
 int count_tree_height(bst_node_t *root, int attribute_index);
 void query_bst(bst_node_t *root, int attribute_index, char *query_str);
 void find_uid_helper(bst_node_t **curr_ptr, item_t *item, bst_node_t **node, bst_node_t ***parent_ptr, int attribute_index);
+void registry_command_reinsert(registry_t *reg, char *command_str);
 
 /*==========================================================*
  *                        MAIN LOGIC                         *
@@ -189,11 +190,12 @@ void process_line(registry_t *reg, char *line) {
  *==========================================================*/
 
 /*====================== STAGE  0 ======================== */
-/* a BST (binary search tree) node contains 
+/* =============== General conceptual notes ===============
+ a BST (binary search tree) node contains 
         (1) A pointer to an item
         (2) Left & Right child pointers 
 
-    malloc(...) creates memory that persists after a function is ends
+    malloc(...) creates memory that persists after a function ends
     e.g. item_t *item = malloc(sizeof(item_t)); => give me enough memory to store one item "item_t"
     AND return a pointer to it. 
     
@@ -201,8 +203,11 @@ void process_line(registry_t *reg, char *line) {
     bst_node_t *left_arr[NUM_ITEM_PROPERTIES] => is an array of POINTERS. NOT a pointer to an array*/
 
 bst_node_t *create_bst_node(item_t *item) {
-    /* TODO: Allocate space on the heap for a node and return a pointer to it */
-    bst_node_t *node = malloc(sizeof(*node)); //
+    /* =============== Goal ===============
+    allocate space on the heap for a BST node and return a pointer to it */
+
+
+    bst_node_t *node = malloc(sizeof(*node));
     assert(node != NULL);
 
     // Attach item
@@ -214,36 +219,44 @@ bst_node_t *create_bst_node(item_t *item) {
         node->right_arr[i] = NULL;
     }
 
-    // Finally return node
     return node;
 }
 
 void free_bst_node(bst_node_t *bst_node) {
-    /* Because we want to free node (which has item in it which owns heap strings) we first free item using our free_item function */
+    /* =============== Goal ===============
+    Free a node - Implementation:
+    (1) Node contains an item - item has heap strings => free item first
+    (2) Free node */
     free_item(bst_node->item);
     free(bst_node);
 }
 
 item_t *create_item(int uid, char *owner, char *description, char *location,
                     status_t status) {
-    // We need the memory for our item_t first
+    /* =============== Goal =============== 
+    To create an item we must
+    (1) Allocate heap memory for a new item_t struct
+    (2) Copy / store the provided values (function inputs) into the struct
+    (3) Return pointer to the newly created item */
+    
+    /* =============== Step 1 =============== */
     item_t *item = malloc(sizeof(item_t)); // Now item points to an empty struct in heap memory
+    assert(item != NULL); // Check malloc worked - if NULL => segmentation fault (other problems)
 
-    // Check malloc worked s.t. if not (i.e. malloc() return NULL) segmentation fault (and other problems) occur
-    assert(item != NULL);
-
-    /* Remember here, item points to the address of the struct. To access the struct we must follow the pointer and THEN access the field
-    (*item).uid but item->uid does this exact thing and is more read-able and write-able 
-    thus, for non-string/"normal" values*/
+    /* =============== Step 2 =============== */
+    /* Remember here, item points to the address of the struct. To access the struct we must follow the pointer 
+    and THEN access the field (*item).uid but item->uid does this exact thing and is more read-able and write-able 
+    thus, for non-string / "normal" values */
     item->uid = uid;
     item->status = status; 
     
-    /* For string values we remind ourselves that strings are just pointers to memory => og. memory may not stay valid. So we duplicate them! */
+    /* For string values we remind ourselves that strings are just pointers to memory => 
+    original memory may not stay valid. So we duplicate them! */
     item->owner = duplicate_string(owner, strlen(owner));
     item->description = duplicate_string(description, strlen(description));
     item->location = duplicate_string(location, strlen(location));
-
-    // Finally return our item
+    
+    /* =============== Step 3 =============== */
     return item;
 }
 
@@ -530,7 +543,6 @@ void registry_command_update(registry_t *reg, char *command_str) {
     Note:
     update_type = the type we are trying to update
     update_str = the value we are trying to update that type to (a str unless update_type = status) */
-    curr_token_start_index = 0;
     char *update_type =
         tokenize_string(command_str, &curr_token_start_index, COMMAND_DELIM);
     assert(update_type != NULL);
@@ -548,7 +560,7 @@ void registry_command_update(registry_t *reg, char *command_str) {
     item_t search_key_item;
     search_key_item.uid = uid; // Only UID is being used as the search key so otherwise NULL item is fine
     bst_node_t *node = NULL;
-    bst_node_t *parent_ptr = node;
+    bst_node_t **parent_ptr = &node;
 
     bst_find_uid_match_and_parent(reg, &search_key_item, &node, &parent_ptr, ITEM_ID_IDX); // ITEM_ID_IDX: searching solely by UID
 
@@ -598,9 +610,9 @@ void registry_command_update(registry_t *reg, char *command_str) {
                     node->item->owner, 
                     node->item->description, 
                     node->item->location,
-                    node->item->status_to_string(item->status));
+                    status_to_string(node->item->status));
 
-    registry_command_add(reg, buffer);
+    registry_command_reinsert(reg, buffer);
 
 }
 
@@ -1033,4 +1045,113 @@ void find_uid_helper(bst_node_t **curr_ptr, item_t *item, bst_node_t **node, bst
 
     // Search right subtree
     find_uid_helper(&((*curr_ptr)->right_arr[attribute_index]), item, node, parent_ptr, attribute_index);
+}
+
+void registry_command_reinsert(registry_t *reg, char *command_str){
+    /*Goal of function:
+    (1) Extract values from command_str
+    (2) Create item
+    (3) Create BST node
+    (4) Print success*/
+
+    char *properties[NUM_ITEM_PROPERTIES]; // Array of pointers to characters
+    size_t curr_token_start_index = 0;
+    int i = 0;
+
+    /* The input format requires parsing 6 values
+    What the loop does: loops through properties s.t.
+    properties[0] = uid
+    properties[1] = owner
+    properties[2] = description... and so on*/
+    char *tok;
+    while (i < NUM_ITEM_PROPERTIES) {
+        tok = tokenize_string(command_str, &curr_token_start_index,
+                              COMMAND_LIST_DELIM);
+        assert(tok != NULL);
+        properties[i++] = tok;
+    }
+
+    int uid = atoi(properties[ITEM_ID_IDX]);
+    free(properties[ITEM_ID_IDX]);
+    status_t status = parse_status(properties[ITEM_STATUS_IDX]); // "LOST" -> STATUS_LOST
+    free(properties[ITEM_STATUS_IDX]);
+
+    char *owner = properties[ITEM_OWNER_IDX];
+    char *description = properties[ITEM_DESCRIPTION_IDX];
+    char *location = properties[ITEM_LOCATION_IDX];
+
+    item_t *item = create_item(uid, owner, description, location, status);
+    bst_node_t *node = create_bst_node(item);
+
+    /* Memory is now s.t. (visually)
+      node
+        └── item
+              ├── uid
+              ├── owner
+              ├── description
+              └── ...
+    */
+    if (node != NULL) {
+        /* Empty tree case */
+        /* Recalling:
+        bst_node_t *bst_root_arr[NUM_ITEM_PROPERTIES]; is an array of ROOT POINTERS for the BSTs
+        bst_root_arr[0] = root of UID BST
+        bst_root_arr[1] = root of OWNER BST
+        bst_root_arr[2] = root of DESCRIPTION BST
+        bst_root_arr[3] = root of LOCATION BST
+        bst_root_arr[4] = root of STATUS BST */
+        int attribute_index;
+        for (attribute_index = 0; attribute_index < NUM_ITEM_PROPERTIES; attribute_index++){
+            // Case where root of BST doesnt exist
+            if (reg->bst_root_arr[attribute_index] == NULL){ // attribute_index = 0 => looking at root of UID BST... etc
+                reg->bst_root_arr[attribute_index] = node;
+            } else {
+                bst_node_t *curr = reg->bst_root_arr[attribute_index]; // Start traversal (comparison) at root of BST
+
+                while (1) { // Break when we insert node into BST
+                    // Create a value for our comparison for our Dupe / left / right logic
+                    int cmp = reg->item_cmp_functions[attribute_index](item,curr->item);
+
+                    /* Duplicate uid */
+                    if ((cmp == 0) && (attribute_index == ITEM_ID_IDX)){ // UID equality means duped item, thus, we dont want it. But we can have cmp = 0 and not be a duped item (cmp func for owner per say = 0 is fine because same person might lose mult things)
+                        printf(ADD_FAIL_STR, item->uid);
+                        free_bst_node(node);
+                        return;
+                    }
+
+                    /* Going left */
+                    if (cmp < 0){
+
+                        // if no left child exists, insert node here
+                        if (curr->left_arr[attribute_index] == NULL){
+                            curr->left_arr[attribute_index] = node;
+                            break;
+                        }
+
+                        // Otherwise move left
+                        curr = curr->left_arr[attribute_index];
+
+                    } else /* Going right i.e. cmp > 0*/ {
+
+                        // If no right child exists, insert node here
+                        if (curr->right_arr[attribute_index] == NULL){
+                            curr->right_arr[attribute_index] = node;
+                            break;
+                        }
+
+                        // Otherwise move right 
+                        curr = curr->right_arr[attribute_index];
+                    }
+                }
+            }
+        }
+
+        // Successful insertion of node
+        reg->bst_node_count++;
+        printf(UPDATE_SUCCESS_STR, uid);
+        print_item_line(item);
+    } else {
+        printf(UPDATE_FAILURE_STR, uid);
+        return;
+    }
 }
