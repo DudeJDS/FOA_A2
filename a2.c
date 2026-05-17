@@ -164,18 +164,14 @@ int main(void) {
     return 0;
 }
 
-/* Call the relevant command handler function for a input command
-
-TODO: Uncomment the relevant command handler function
-when it is implemented. (Commented out to start so it compiles)
-*/
+/* Call the relevant command handler function for a input command */
 void process_line(registry_t *reg, char *line) {
     if (strncmp(line, "ADD ", 4) == 0) {
         registry_command_add(reg, line + 4);
     } else if (strncmp(line, "QUERY ", 6) == 0) {
         registry_command_query(reg, line + 6);
     } else if (strncmp(line, "UPDATE ", 7) == 0) {
-        // registry_command_update(reg, line + 7);
+        registry_command_update(reg, line + 7);
     } else if (strncmp(line, "PRINT ", 6) == 0) {
         registry_command_print(reg, line + 6);
     } else if (strncmp(line, "STATS ", 6) == 0) {
@@ -318,18 +314,7 @@ void registry_command_add(registry_t *reg, char *command_str) {
               ├── description
               └── ...
     */
-    if (node != NULL) { 
-        /*
-        TODO:
-        - Insert the newly created node into the BST for each attribute from
-          0 to (NUM_ITEM_PROPERTIES - 1).
-        - Print the ADD_SUCCESS_STR and item line if successful
-        - Note you can access the comparison function with
-          reg->item_cmp_functions[attribute_index]
-
-        Note: You may wish to start by implementing your code for only the UID
-              BST (which is index 0)
-        */
+    if (node != NULL) {
         /* Empty tree case */
         /* Recalling:
         bst_node_t *bst_root_arr[NUM_ITEM_PROPERTIES]; is an array of ROOT POINTERS for the BSTs
@@ -534,11 +519,18 @@ void registry_command_delete(registry_t *reg, char *command_str) {
 /*====================== STAGE  5 ======================== */
 
 void registry_command_update(registry_t *reg, char *command_str) {
-    /* =============== Parsing update_type and update_val ===============
+    /* =============== Parsing UID =============== */
+    size_t curr_token_start_index = 0;
+    char *uid_str =
+    tokenize_string(command_str, &curr_token_start_index, COMMAND_DELIM);
+    int uid = atoi(uid_str);
+    free(uid_str); // Release heap memory
+
+    /* =============== Parsing UID ===============
     Note:
     update_type = the type we are trying to update
-    update_str = the value we are trying to update that type to */
-    size_t curr_token_start_index = 0;
+    update_str = the value we are trying to update that type to (a str unless update_type = status) */
+    curr_token_start_index = 0;
     char *update_type =
         tokenize_string(command_str, &curr_token_start_index, COMMAND_DELIM);
     assert(update_type != NULL);
@@ -547,14 +539,18 @@ void registry_command_update(registry_t *reg, char *command_str) {
         duplicate_string(command_str + curr_token_start_index,
                          strlen(command_str + curr_token_start_index));
     assert(update_str != NULL);
-
+ 
     int attribute_index = attribute_string_to_attribute_index(update_type);
 
     /* =============== Step 1 =============== 
-    Find the node using bst_find_uid_match_and_parent (STAGE 4) */
+    Find the node using bst_find_uid_match_and_parent (STAGE 4) 
+    Recall: We pass item into bst_find_uid_match_and_parent - item which is only used as a search key.*/
+    item_t search_key_item;
+    search_key_item.uid = uid; // Only UID is being used as the search key so otherwise NULL item is fine
     bst_node_t *node = NULL;
-    bst_node_t *parent_ptr = NULL;
-    bst_find_uid_match_and_parent(reg, item, node, &(parent_ptr), attribute_index);
+    bst_node_t *parent_ptr = node;
+
+    bst_find_uid_match_and_parent(reg, &search_key_item, &node, &parent_ptr, ITEM_ID_IDX); // ITEM_ID_IDX: searching solely by UID
 
     /* =============== Step 2 ===============
     Remove the node from all BSTs using bst_pop 
@@ -563,15 +559,49 @@ void registry_command_update(registry_t *reg, char *command_str) {
     (2) modify the item value 
     (3) re-instert node into correct place on all BSTs
     Thus, we dont want to free the node (deallocate the memory) */
-    bst_pop(reg,)
+    bst_pop(reg, uid);
 
     /* =============== Step 3 ===============
-    Modify the item field */
+    Modify the item field:
+    (1) Free the value initially there
+    (2) Re-allocate heap memory to new value */
     switch(attribute_index){
         // Owner
         case ITEM_OWNER_IDX:
-            
+            free(node->item->owner);
+            node->item->owner = duplicate_string(update_str, strlen(update_str));
+        break;
+
+        // Description
+        case ITEM_DESCRIPTION_IDX:
+            free(node->item->description);
+            node->item->description = duplicate_string(update_str, strlen(update_str));
+        break;
+
+        // Location
+        case ITEM_LOCATION_IDX:
+            free(node->item->location);
+            node->item->location = duplicate_string(update_str, strlen(update_str));
+        break;
+
+        // Status
+        case ITEM_STATUS_IDX:
+            node->item->status = parse_status(update_str); // No free needed because its not a heap string
+        break;
     }
+
+    /* =============== Step 4 ===============
+    Reinsert node into ALL BSTs using stage 1 function registry_command_add */
+    char buffer[1024];
+    sprintf(buffer, "%d;%s;%s;%s;%s",
+                    uid, 
+                    node->item->owner, 
+                    node->item->description, 
+                    node->item->location,
+                    node->item->status_to_string(item->status));
+
+    registry_command_add(reg, buffer);
+
 }
 
 /*==========================================================*
