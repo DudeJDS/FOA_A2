@@ -133,6 +133,7 @@ int count_total_nodes(bst_node_t *root, int attribute_index);
 void count_unique_vals(bst_node_t *root, int attribute_index, item_t **prev_item, int *cnt);
 int count_tree_height(bst_node_t *root, int attribute_index);
 void query_bst(bst_node_t *root, int attribute_index, char *query_str);
+void find_uid_helper(bst_node_t **curr_ptr, item_t *item, bst_node_t **node, bst_node_t ***parent_ptr, int attribute_index);
 
 /*==========================================================*
  *                        MAIN LOGIC                         *
@@ -180,7 +181,7 @@ void process_line(registry_t *reg, char *line) {
     } else if (strncmp(line, "STATS ", 6) == 0) {
         registry_command_stats(reg, line + 6);
     } else if (strncmp(line, "DELETE ", 7) == 0) {
-        // registry_command_delete(reg, line + 7);
+        registry_command_delete(reg, line + 7);
     } else {
         printf("Invalid Line: '%s'\n", line);
         assert(0);
@@ -477,16 +478,42 @@ void bst_find_in_order_successor_and_parent(bst_node_t *node,
      It should be true that for non NULL variables:
         `**successor_parent_ptr == *successor` at the end of your function
      */
+    if (node == NULL){
+        *successor = NULL;
+        *successor_parent_ptr = NULL;
+        return;
+    }
+    // Start from the right subtree
+    bst_node_t *start = node->right_arr[attribute_index];
+    bst_node_t *parent = node;
+    bst_node_t *curr = start;
+
+    // If no right subtree exists
+    if (curr == NULL){
+        *successor = NULL;
+        *successor_parent_ptr = NULL;
+        return;
+    }
+
+    // Otherwise, we are A-Okay to traverse left till the end! (NULL)
+    while (curr->left_arr[attribute_index] != NULL){
+        parent = curr;
+        curr = curr->left_arr[attribute_index];
+    }
+    
+    *successor = curr;
+    *successor_parent_ptr = &(parent->left_arr[attribute_index]);
+    
 }
 
 void bst_find_uid_match_and_parent(registry_t *reg, item_t *item,
                                    bst_node_t **node, bst_node_t ***parent_ptr,
                                    int attribute_index) {
-    /* TODO: Find a node in a given attribute BST and a pointer to the
-    parent pointer which links to it.
-     It should be true that for non NULL variables:
-        `**parent_ptr == *node` at the end of your function
-    */
+    // Initialise *node == NULL as we want to initially pass it as NULL into helper function
+    // => **parent_ptr == NULL
+    *node = NULL;
+    *parent_ptr = NULL;
+    find_uid_helper(&(reg->bst_root_arr[attribute_index]), item, node, parent_ptr, attribute_index);
 }
 
 
@@ -507,8 +534,44 @@ void registry_command_delete(registry_t *reg, char *command_str) {
 /*====================== STAGE  5 ======================== */
 
 void registry_command_update(registry_t *reg, char *command_str) {
-    /* TODO: Handle the update command so that attributes
-    (except for UID) can be modified */
+    /* =============== Parsing update_type and update_val ===============
+    Note:
+    update_type = the type we are trying to update
+    update_str = the value we are trying to update that type to */
+    size_t curr_token_start_index = 0;
+    char *update_type =
+        tokenize_string(command_str, &curr_token_start_index, COMMAND_DELIM);
+    assert(update_type != NULL);
+
+    char *update_str =
+        duplicate_string(command_str + curr_token_start_index,
+                         strlen(command_str + curr_token_start_index));
+    assert(update_str != NULL);
+
+    int attribute_index = attribute_string_to_attribute_index(update_type);
+
+    /* =============== Step 1 =============== 
+    Find the node using bst_find_uid_match_and_parent (STAGE 4) */
+    bst_node_t *node = NULL;
+    bst_node_t *parent_ptr = NULL;
+    bst_find_uid_match_and_parent(reg, item, node, &(parent_ptr), attribute_index);
+
+    /* =============== Step 2 ===============
+    Remove the node from all BSTs using bst_pop 
+    We use bst_pop & not free_bst_node because we want to 
+    (1) detach the node
+    (2) modify the item value 
+    (3) re-instert node into correct place on all BSTs
+    Thus, we dont want to free the node (deallocate the memory) */
+    bst_pop(reg,)
+
+    /* =============== Step 3 ===============
+    Modify the item field */
+    switch(attribute_index){
+        // Owner
+        case ITEM_OWNER_IDX:
+            
+    }
 }
 
 /*==========================================================*
@@ -910,4 +973,34 @@ void query_bst(bst_node_t *root, int attribute_index, char *query_str){
 
     // Now traverse right tree
     query_bst(root->right_arr[attribute_index], attribute_index, query_str);
+}
+
+void find_uid_helper(bst_node_t **curr_ptr, item_t *item, bst_node_t **node, bst_node_t ***parent_ptr, int attribute_index){
+    // End of branch
+    if (*curr_ptr == NULL){
+        return;
+    }
+
+    // Found matching UID
+    if ((*curr_ptr)->item->uid == item->uid){
+        *node = *curr_ptr;
+        *parent_ptr = curr_ptr;
+        return; // Note: we can return here because we know UID's are unique 
+    }
+
+    // Search left subtree 
+    find_uid_helper(&((*curr_ptr)->left_arr[attribute_index]), item, node, parent_ptr, attribute_index);
+
+    // If UID is already found 
+    // (NOTE: we initially pass *node == NULL so if *node != NULL => uid already found as per block above)
+    /* Also note we do this after the check of the curr node and after moving left because our traversal is s.t.
+    Search left subtree
+    if found => STOP
+    if not found search right subtree */
+    if (*node != NULL){
+        return;
+    }
+
+    // Search right subtree
+    find_uid_helper(&((*curr_ptr)->right_arr[attribute_index]), item, node, parent_ptr, attribute_index);
 }
