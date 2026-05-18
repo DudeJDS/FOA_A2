@@ -32,8 +32,8 @@
 #define ITEM_STATUS_FOUND_STR "FOUND"
 #define ITEM_STATUS_LOST_STR "LOST"
 
-#define QUERY_FOUND_STR "Query for '%s' found the following matches:\n"
-#define QUERY_FAIL_STR "Query for '%s' found no matches.\n"
+#define QUERY_FOUND_STR "Query for '%s %s' found the following matches:\n"
+#define QUERY_FAIL_STR "Query for '%s %s' found no matches.\n"
 #define ADD_SUCCESS_STR "Added item: "
 #define ADD_FAIL_STR "Item with UID %d not added as it already exists\n"
 #define STATS_LINE_STR "Stats for %s BST:\n"
@@ -132,9 +132,11 @@ void print_in_order(bst_node_t *root, int attribute_index);
 int count_total_nodes(bst_node_t *root, int attribute_index);
 void count_unique_vals(bst_node_t *root, int attribute_index, item_t **prev_item, int *cnt);
 int count_tree_height(bst_node_t *root, int attribute_index);
-void query_bst(bst_node_t *root, int attribute_index, char *query_str);
+void query_bst(bst_node_t *root, int attribute_index, char *query_str, char *query_type);
 void find_uid_helper(bst_node_t **curr_ptr, item_t *item, bst_node_t **node, bst_node_t ***parent_ptr, int attribute_index);
 void registry_command_reinsert(registry_t *reg, char *command_str);
+void count_lost_items(bst_node_t *root, int attribute_index, int *cnt);
+int query_bst_detect(bst_node_t *root, int attribute_index, char *query_str);
 
 /*==========================================================*
  *                        MAIN LOGIC                         *
@@ -425,13 +427,12 @@ void registry_command_print(registry_t *reg, char *command_str) {
     assert(query_type != NULL);
     int attribute_index = attribute_string_to_attribute_index(query_type);
 
-     /* =============== Step 2 =============== */
-     printf(PRINT_STR, query_type);
+    /* =============== Step 2 =============== */
+    printf(PRINT_STR, query_type);
 
-     /* =============== Step 3 =============== */
-     bst_node_t *root_node = reg->bst_root_arr[attribute_index];
-
-     print_in_order(root_node, attribute_index);
+    /* =============== Step 3 =============== */
+    bst_node_t *root_node = reg->bst_root_arr[attribute_index];
+    print_in_order(root_node, attribute_index);
 }
 
 /*====================== STAGE  2 ======================== */
@@ -476,6 +477,13 @@ void registry_command_stats(registry_t *reg, char *command_str) {
     int tree_height;
     tree_height = count_tree_height(root, attribute_index);
     printf(STATS_TREE_HEIGHT, tree_height);
+
+    /* Calculating number of lost items */
+    if (attribute_index == ITEM_STATUS_IDX) {
+        int lost_count = 0;
+        count_lost_items(root, attribute_index, &lost_count);
+        printf(STATS_LOST_ITEMS, lost_count);
+    }
 }
 
 /*====================== STAGE  3 ======================== */
@@ -500,7 +508,16 @@ void registry_command_query(registry_t *reg, char *command_str) {
     
     /* =============== Step 2 =============== */
     bst_node_t *root = reg->bst_root_arr[attribute_index];
-    query_bst(root, attribute_index, query_str);
+
+    int found = query_bst_detect(root, attribute_index, query_str);
+    
+    if (!found) {
+        printf(QUERY_FAIL_STR, query_type, query_str);
+        return;
+    }
+
+    printf(QUERY_FOUND_STR, query_type, query_str);
+    query_bst(root, attribute_index, query_str, query_type);
 }
 
 /*====================== STAGE  4 ======================== */
@@ -908,6 +925,7 @@ void print_in_order(bst_node_t *root, int attribute_index){
     print_in_order(root->left_arr[attribute_index], attribute_index);
 
     // Print current node
+    printf(ITEM_LIST_PREFIX);
     print_item_line(root->item);
 
     // Print right subtree using recursion AFTER!
@@ -1010,7 +1028,7 @@ int count_tree_height(bst_node_t *root, int attribute_index){
     return 1 + (left_height > right_height ? left_height : right_height);
 }
 
-void query_bst(bst_node_t *root, int attribute_index, char *query_str){
+void query_bst(bst_node_t *root, int attribute_index, char *query_str, char *query_type){
     /* =============== Goal =============== 
     Print succesful matches with queried item property
     This is done through in order traversal as required */
@@ -1021,14 +1039,14 @@ void query_bst(bst_node_t *root, int attribute_index, char *query_str){
     }
 
     // Traverse left tree first (printing in order)
-    query_bst(root->left_arr[attribute_index], attribute_index, query_str);
+    query_bst(root->left_arr[attribute_index], attribute_index, query_str, query_type);
 
     // Check current node
     switch(attribute_index){
         // UID check
         case ITEM_ID_IDX:
             if (root->item->uid == atoi(query_str)){
-                printf(QUERY_FOUND_STR, query_str);
+                printf(ITEM_LIST_PREFIX);
                 print_item_line(root->item);
             }
         break;
@@ -1036,7 +1054,7 @@ void query_bst(bst_node_t *root, int attribute_index, char *query_str){
         // Owner check
         case ITEM_OWNER_IDX:
             if (strcmp(root->item->owner, query_str) == 0){
-                printf(QUERY_FOUND_STR, query_str);
+                printf(ITEM_LIST_PREFIX);
                 print_item_line(root->item);
             }
         break;
@@ -1044,7 +1062,7 @@ void query_bst(bst_node_t *root, int attribute_index, char *query_str){
         // Description check
         case ITEM_DESCRIPTION_IDX:
             if (strcmp(root->item->description, query_str) == 0){
-                printf(QUERY_FOUND_STR, query_str);
+                printf(ITEM_LIST_PREFIX);
                 print_item_line(root->item);
             }
         break;
@@ -1052,7 +1070,7 @@ void query_bst(bst_node_t *root, int attribute_index, char *query_str){
         // Location check
         case ITEM_LOCATION_IDX:
             if (strcmp(root->item->location, query_str) == 0){
-                printf(QUERY_FOUND_STR, query_str);
+                printf(ITEM_LIST_PREFIX);
                 print_item_line(root->item);
             }
         break;
@@ -1060,14 +1078,62 @@ void query_bst(bst_node_t *root, int attribute_index, char *query_str){
         // Status check
         case ITEM_STATUS_IDX:
             if (root->item->status == parse_status(query_str)){
-                printf(QUERY_FOUND_STR,query_str);
+                printf(ITEM_LIST_PREFIX);
                 print_item_line(root->item);
             }
         break;
     }
 
     // Now traverse right tree
-    query_bst(root->right_arr[attribute_index], attribute_index, query_str);
+    query_bst(root->right_arr[attribute_index], attribute_index, query_str, query_type);
+}
+
+int query_bst_detect(bst_node_t *root, int attribute_index, char *query_str) {
+    if (root == NULL) {
+        return 0;
+    }
+
+    // search left subtree first
+    if (query_bst_detect(root->left_arr[attribute_index], attribute_index, query_str)) {
+        return 1;
+    }
+
+    // check current node
+    switch (attribute_index) {
+
+        case ITEM_ID_IDX:
+            if (root->item->uid == atoi(query_str)) {
+                return 1;
+            }
+            break;
+
+        case ITEM_OWNER_IDX:
+            if (strcmp(root->item->owner, query_str) == 0) {
+                return 1;
+            }
+            break;
+
+        case ITEM_DESCRIPTION_IDX:
+            if (strcmp(root->item->description, query_str) == 0) {
+                return 1;
+            }
+            break;
+
+        case ITEM_LOCATION_IDX:
+            if (strcmp(root->item->location, query_str) == 0) {
+                return 1;
+            }
+            break;
+
+        case ITEM_STATUS_IDX:
+            if (root->item->status == parse_status(query_str)) {
+                return 1;
+            }
+            break;
+    }
+
+    // search right subtree
+    return query_bst_detect(root->right_arr[attribute_index], attribute_index, query_str);
 }
 
 void find_uid_helper(bst_node_t **curr_ptr, item_t *item, bst_node_t **node, bst_node_t ***parent_ptr, int attribute_index){
@@ -1210,4 +1276,21 @@ void registry_command_reinsert(registry_t *reg, char *command_str){
         printf(UPDATE_FAILURE_STR, uid);
         return;
     }
+}
+
+void count_lost_items(bst_node_t *root, int attribute_index, int *cnt) {
+    /*Goal of function:
+    Find and count the number of all lost items */
+    if (root == NULL) return;
+
+    // Left traversal first (in-order)
+    count_lost_items(root->left_arr[attribute_index], attribute_index, cnt);
+
+    // Check current
+    if (root->item->status == STATUS_LOST) {
+        (*cnt)++;
+    }
+    
+    // Then right traversal 
+    count_lost_items(root->right_arr[attribute_index], attribute_index, cnt);
 }
