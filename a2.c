@@ -467,6 +467,13 @@ void registry_command_stats(registry_t *reg, char *command_str) {
     total_item_cnt = count_total_nodes(root, attribute_index);
     printf(STATS_TOTAL_ITEMS, total_item_cnt);
 
+    /* Calculating number of lost items */
+    if (attribute_index == ITEM_STATUS_IDX) {
+        int lost_count = 0;
+        count_lost_items(root, attribute_index, &lost_count);
+        printf(STATS_LOST_ITEMS, lost_count);
+    }
+
     /* Calculating unique items */
     int unique_item_cnt = 0;
     item_t *prev_item = NULL;
@@ -477,13 +484,6 @@ void registry_command_stats(registry_t *reg, char *command_str) {
     int tree_height;
     tree_height = count_tree_height(root, attribute_index);
     printf(STATS_TREE_HEIGHT, tree_height);
-
-    /* Calculating number of lost items */
-    if (attribute_index == ITEM_STATUS_IDX) {
-        int lost_count = 0;
-        count_lost_items(root, attribute_index, &lost_count);
-        printf(STATS_LOST_ITEMS, lost_count);
-    }
 }
 
 /*====================== STAGE  3 ======================== */
@@ -597,12 +597,7 @@ void registry_command_update(registry_t *reg, char *command_str) {
     (1) Pass command string:
         Acquire UID, item property and new property
     (2) Find the node using bst_find_uid_match_and_parent (STAGE 4)
-    (3) Remove the node from all BSTs using bst_pop 
-        We use bst_pop & not free_bst_node because we want to 
-        (a) detach the node
-        (b) modify the item value 
-        (c) re-instert node into correct place on all BSTs
-        Thus, we dont want to free the node (deallocate the memory)
+    (3) Check if UID actually exists
     (4) Modify the item field:
         (a) Free the value initially there
         (b) Re-allocate heap memory to new value 
@@ -634,36 +629,42 @@ void registry_command_update(registry_t *reg, char *command_str) {
     item_t search_key_item;
     search_key_item.uid = uid; // Only UID is being used as the search key so otherwise NULL propertys are fine
     bst_node_t *node = NULL;
-    bst_node_t **parent_ptr = &node;
+    bst_node_t **parent_ptr = NULL;
     // ITEM_ID_IDX: searching solely by UID
     bst_find_uid_match_and_parent(reg, &search_key_item, &node, &parent_ptr, ITEM_ID_IDX); 
-
+    
     /* =============== Step 3 =============== */
-    bst_pop(reg, uid);
+    if (node == NULL) {
+        printf(UPDATE_FAILURE_STR, uid);
+        free(update_type);
+        free(update_str);
+        return;
+    }
 
     /* =============== Step 4 =============== */
+    item_t *item = node->item;
     switch(attribute_index){
         // Owner
         case ITEM_OWNER_IDX:
-            free(node->item->owner);
-            node->item->owner = duplicate_string(update_str, strlen(update_str));
+            free(item->owner);
+            item->owner = duplicate_string(update_str, strlen(update_str));
         break;
 
         // Description
         case ITEM_DESCRIPTION_IDX:
-            free(node->item->description);
-            node->item->description = duplicate_string(update_str, strlen(update_str));
+            free(item->description);
+            item->description = duplicate_string(update_str, strlen(update_str));
         break;
 
         // Location
         case ITEM_LOCATION_IDX:
-            free(node->item->location);
-            node->item->location = duplicate_string(update_str, strlen(update_str));
+            free(item->location);
+            item->location = duplicate_string(update_str, strlen(update_str));
         break;
 
         // Status
         case ITEM_STATUS_IDX:
-            node->item->status = parse_status(update_str); // No free needed because its not a heap string
+            item->status = parse_status(update_str); // No free needed because its not a heap string
         break;
     }
 
@@ -671,10 +672,12 @@ void registry_command_update(registry_t *reg, char *command_str) {
     char buffer[1024];
     sprintf(buffer, "%d;%s;%s;%s;%s",
                     uid, 
-                    node->item->owner, 
-                    node->item->description, 
-                    node->item->location,
-                    status_to_string(node->item->status));
+                    item->owner, 
+                    item->description, 
+                    item->location,
+                    status_to_string(item->status));
+
+    bst_pop(reg, uid);
 
     registry_command_reinsert(reg, buffer);
 
