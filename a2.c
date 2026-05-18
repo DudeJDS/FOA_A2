@@ -3,7 +3,7 @@
  *                Skeleton Code: COMP10002 Assignment 2 2026                   *
  *              Written by: Kacie Beckett and Dr Hanzhi Wang                   *
  *                          LOST ITEM REGISTRY                                 *
- *          Edited by: [PLEASE ADD YOUR FULL NAME AND STUDENT ID HERE]         *
+ *          Edited by: Jude Docherty Scott - 1616474         *
  *============================================================================*/
 /*==========================================================*
  *                  PREPROCESSOR DIRECTIVES                  *
