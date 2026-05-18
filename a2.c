@@ -204,21 +204,26 @@ void process_line(registry_t *reg, char *line) {
 
 bst_node_t *create_bst_node(item_t *item) {
     /* =============== Goal ===============
-    allocate space on the heap for a BST node and return a pointer to it */
+    Allocate space on the heap for a BST node and return a pointer to it:
+    (1) Allocate space on the heap for the node
+    (2) Attach item to node
+    (3) Set all children to NULL
+    (4) Return pointer to node */
 
-
+    /* =============== Step 1 =============== */
     bst_node_t *node = malloc(sizeof(*node));
     assert(node != NULL);
 
-    // Attach item
+    /* =============== Step 2 =============== */
     node->item = item; // NOT COPYING! Just storing pointer to item
 
-    // Set all children to NULL
+    /* =============== Step 3 =============== */
     for (int i = 0; i < NUM_ITEM_PROPERTIES; i++){
         node->left_arr[i] = NULL;
         node->right_arr[i] = NULL;
     }
 
+    /* =============== Step 4 =============== */
     return node;
 }
 
@@ -227,7 +232,9 @@ void free_bst_node(bst_node_t *bst_node) {
     Free a node - Implementation:
     (1) Node contains an item - item has heap strings => free item first
     (2) Free node */
+    /* =============== Step 1 =============== */
     free_item(bst_node->item);
+    /* =============== Step 2 =============== */
     free(bst_node);
 }
 
@@ -261,16 +268,24 @@ item_t *create_item(int uid, char *owner, char *description, char *location,
 }
 
 void free_item(item_t *item) {
-    /* Note: the struct itself (item) is heap memory, and each string is also seperate heap memory bcs. duplicate_string used malloc() 
-    Thus, we have had 4 allocations
+    /* =============== Goal =============== 
+    Free item:
+    (1) free struct string heap memory 
+    (2) free the struct (item) heap memory */
+    
+    /* Note: the struct itself (item) is heap memory, and each string is also seperate heap memory 
+    bcs. duplicate_string used malloc() thus, we have had 4 allocations
     (1) item
     (2) owner
     (3) description
     (4) location 
-    So we will free everything owned by item starting by freeing internal heap memory first... then freeing outer struct last*/
+    So we will free everything owned by item starting by freeing internal heap memory first...
+    then freeing outer struct last*/
+    /* =============== Step 1 =============== */
     free(item->owner);
     free(item->description);
     free(item->location);
+    /* =============== Step 2 =============== */
     free(item);
 }
 
@@ -284,12 +299,13 @@ void free_item(item_t *item) {
     Each BST is sorted differently, BUT they all contain the same items*/
 
 void registry_command_add(registry_t *reg, char *command_str) {
-    /*Goal of function:
-    (1) Extract values from command_str
-    (2) Create item
-    (3) Create BST node
-    (4) Print success*/
+    /* =============== Goal =============== 
+    (1) Extract (parse) values from command_str
+    (2) Create item / Create BST node
+    (3) Insert node into appropriate positon on BST
+    (4) Print success */
 
+    /* =============== Step 1 =============== */
     char *properties[NUM_ITEM_PROPERTIES]; // Array of pointers to characters
     size_t curr_token_start_index = 0;
     int i = 0;
@@ -316,6 +332,7 @@ void registry_command_add(registry_t *reg, char *command_str) {
     char *description = properties[ITEM_DESCRIPTION_IDX];
     char *location = properties[ITEM_LOCATION_IDX];
 
+    /* =============== Step 2 =============== */
     item_t *item = create_item(uid, owner, description, location, status);
     bst_node_t *node = create_bst_node(item);
 
@@ -325,8 +342,10 @@ void registry_command_add(registry_t *reg, char *command_str) {
               ├── uid
               ├── owner
               ├── description
-              └── ...
+              └── ... 
     */
+
+    /* =============== Step 3 =============== */
     if (node != NULL) {
         /* Empty tree case */
         /* Recalling:
@@ -382,6 +401,7 @@ void registry_command_add(registry_t *reg, char *command_str) {
             }
         }
 
+        /* =============== Step 4 =============== */
         // Successful insertion of node
         reg->bst_node_count++;
         printf(ADD_SUCCESS_STR);
@@ -392,16 +412,23 @@ void registry_command_add(registry_t *reg, char *command_str) {
 }
 
 void registry_command_print(registry_t *reg, char *command_str) {
+    /* =============== Goal =============== 
+    Print all entries of queried BST:
+    (1) Parse command string for which BST to print
+    (2) Print standard heading
+    (3) Print in-order BST */
+
+    /* =============== Step 1 =============== */
     size_t curr_token_start_index = 0;
     char *query_type =
         tokenize_string(command_str, &curr_token_start_index, COMMAND_DELIM);
     assert(query_type != NULL);
     int attribute_index = attribute_string_to_attribute_index(query_type);
 
-     // Printing our heading
+     /* =============== Step 2 =============== */
      printf(PRINT_STR, query_type);
 
-     // Start from the root of queried BST
+     /* =============== Step 3 =============== */
      bst_node_t *root_node = reg->bst_root_arr[attribute_index];
 
      print_in_order(root_node, attribute_index);
@@ -410,17 +437,22 @@ void registry_command_print(registry_t *reg, char *command_str) {
 /*====================== STAGE  2 ======================== */
 
 void registry_command_stats(registry_t *reg, char *command_str) {
-    // Must extract which item property is the subject of the query
+    /* =============== Goal =============== 
+    (1) Extract whicj item property is the subject of the query
+    (2) Print generic stats line
+    (3) Print stats for selected BST*/
+    /* =============== Step 1 =============== */
     size_t curr_token_start_index = 0;
     char * query_type = 
         tokenize_string(command_str, &curr_token_start_index, COMMAND_DELIM);
     assert(query_type != NULL);
     int attribute_index = attribute_string_to_attribute_index(query_type);
 
-    bst_node_t *root = reg->bst_root_arr[attribute_index];
-    // Print generic stats line
+    /* =============== Step 2 =============== */
     printf(STATS_LINE_STR, query_type);
 
+    /* =============== Step 3 =============== */
+    bst_node_t *root = reg->bst_root_arr[attribute_index];
     // Case: Empty BST
     if (root == NULL){
         printf(STATS_TOTAL_ITEMS, 0);
@@ -449,6 +481,11 @@ void registry_command_stats(registry_t *reg, char *command_str) {
 /*====================== STAGE  3 ======================== */
 
 void registry_command_query(registry_t *reg, char *command_str) {
+    /* =============== Goal =============== 
+    (1) Parse command string for queried item property
+    (2) Find matches in BST order and print in ascending (as per usual) order */
+
+    /* =============== Step 1 =============== */
     size_t curr_token_start_index = 0;
     char *query_type =
         tokenize_string(command_str, &curr_token_start_index, COMMAND_DELIM);
@@ -461,6 +498,7 @@ void registry_command_query(registry_t *reg, char *command_str) {
 
     int attribute_index = attribute_string_to_attribute_index(query_type);
     
+    /* =============== Step 2 =============== */
     bst_node_t *root = reg->bst_root_arr[attribute_index];
     query_bst(root, attribute_index, query_str);
 }
@@ -471,17 +509,20 @@ void bst_find_in_order_successor_and_parent(bst_node_t *node,
                                             bst_node_t **successor,
                                             bst_node_t ***successor_parent_ptr,
                                             int attribute_index) {
-    /* TODO: Find the inorder successor and save it, aswell a pointer,
-     to the parent pointer which links to the inorder successor.
-     It should be true that for non NULL variables:
-        `**successor_parent_ptr == *successor` at the end of your function
-     */
+    /* =============== Goal =============== 
+    (1) Find inorder successor and save it, where:
+    The inorder successor is the left-most node relative to the right child of the given node
+    (2) Find pointer to the parent pointer, where:
+    *successor_parent_ptr = &(parent->left_arr[attribute_index]) */
+
+    // Null node check
     if (node == NULL){
         *successor = NULL;
         *successor_parent_ptr = NULL;
         return;
     }
-    // Start from the right subtree
+
+    // Start from the right subtree (right-left-left...-left-NULL)
     bst_node_t *start = node->right_arr[attribute_index];
     bst_node_t *parent = node;
     bst_node_t *curr = start;
@@ -493,7 +534,7 @@ void bst_find_in_order_successor_and_parent(bst_node_t *node,
         return;
     }
 
-    // Otherwise, we are A-Okay to traverse left till the end! (NULL)
+    // Traverse left until NULL
     while (curr->left_arr[attribute_index] != NULL){
         parent = curr;
         curr = curr->left_arr[attribute_index];
@@ -507,6 +548,9 @@ void bst_find_in_order_successor_and_parent(bst_node_t *node,
 void bst_find_uid_match_and_parent(registry_t *reg, item_t *item,
                                    bst_node_t **node, bst_node_t ***parent_ptr,
                                    int attribute_index) {
+    /* =============== Goal =============== 
+    Find item node which contains item with matching UID - starting at root of BST */
+
     // Initialise *node == NULL as we want to initially pass it as NULL into helper function
     // => **parent_ptr == NULL
     *node = NULL;
@@ -532,15 +576,29 @@ void registry_command_delete(registry_t *reg, char *command_str) {
 /*====================== STAGE  5 ======================== */
 
 void registry_command_update(registry_t *reg, char *command_str) {
-    /* =============== Parsing UID =============== */
+    /* =============== Goal =============== 
+    (1) Pass command string:
+        Acquire UID, item property and new property
+    (2) Find the node using bst_find_uid_match_and_parent (STAGE 4)
+    (3) Remove the node from all BSTs using bst_pop 
+        We use bst_pop & not free_bst_node because we want to 
+        (a) detach the node
+        (b) modify the item value 
+        (c) re-instert node into correct place on all BSTs
+        Thus, we dont want to free the node (deallocate the memory)
+    (4) Modify the item field:
+        (a) Free the value initially there
+        (b) Re-allocate heap memory to new value 
+    (5) Reinsert node into ALL BSTs using slightly altered stage 1 function registry_command_reinsert */
+
+    /* =============== Step 1 =============== */
     size_t curr_token_start_index = 0;
     char *uid_str =
     tokenize_string(command_str, &curr_token_start_index, COMMAND_DELIM);
     int uid = atoi(uid_str);
     free(uid_str); // Release heap memory
 
-    /* =============== Parsing UID ===============
-    Note:
+    /* Note:
     update_type = the type we are trying to update
     update_str = the value we are trying to update that type to (a str unless update_type = status) */
     char *update_type =
@@ -554,29 +612,19 @@ void registry_command_update(registry_t *reg, char *command_str) {
  
     int attribute_index = attribute_string_to_attribute_index(update_type);
 
-    /* =============== Step 1 =============== 
-    Find the node using bst_find_uid_match_and_parent (STAGE 4) 
-    Recall: We pass item into bst_find_uid_match_and_parent - item which is only used as a search key.*/
+    /* =============== Step 2 ===============  
+    Recall: We pass item into bst_find_uid_match_and_parent - item is only used as a search key.*/
     item_t search_key_item;
-    search_key_item.uid = uid; // Only UID is being used as the search key so otherwise NULL item is fine
+    search_key_item.uid = uid; // Only UID is being used as the search key so otherwise NULL propertys are fine
     bst_node_t *node = NULL;
     bst_node_t **parent_ptr = &node;
+    // ITEM_ID_IDX: searching solely by UID
+    bst_find_uid_match_and_parent(reg, &search_key_item, &node, &parent_ptr, ITEM_ID_IDX); 
 
-    bst_find_uid_match_and_parent(reg, &search_key_item, &node, &parent_ptr, ITEM_ID_IDX); // ITEM_ID_IDX: searching solely by UID
-
-    /* =============== Step 2 ===============
-    Remove the node from all BSTs using bst_pop 
-    We use bst_pop & not free_bst_node because we want to 
-    (1) detach the node
-    (2) modify the item value 
-    (3) re-instert node into correct place on all BSTs
-    Thus, we dont want to free the node (deallocate the memory) */
+    /* =============== Step 3 =============== */
     bst_pop(reg, uid);
 
-    /* =============== Step 3 ===============
-    Modify the item field:
-    (1) Free the value initially there
-    (2) Re-allocate heap memory to new value */
+    /* =============== Step 4 =============== */
     switch(attribute_index){
         // Owner
         case ITEM_OWNER_IDX:
@@ -602,8 +650,7 @@ void registry_command_update(registry_t *reg, char *command_str) {
         break;
     }
 
-    /* =============== Step 4 ===============
-    Reinsert node into ALL BSTs using stage 1 function registry_command_add */
+    /* =============== Step 5 =============== */
     char buffer[1024];
     sprintf(buffer, "%d;%s;%s;%s;%s",
                     uid, 
@@ -857,7 +904,7 @@ void print_in_order(bst_node_t *root, int attribute_index){
     if (root == NULL){
         return;
     }
-    // Print left subtree first using recursion FIRST!
+    // Print left subtree first using recursion
     print_in_order(root->left_arr[attribute_index], attribute_index);
 
     // Print current node
@@ -873,6 +920,7 @@ int count_total_nodes(bst_node_t *root, int attribute_index){
         return 0;
     }
 
+    // Ensures we count each left and right subtree by going left and right at each node
     return 1 + count_total_nodes(root->left_arr[attribute_index], attribute_index)
              + count_total_nodes(root->right_arr[attribute_index], attribute_index);
 }
@@ -892,7 +940,7 @@ void count_unique_vals(bst_node_t *root, int attribute_index, item_t **prev_item
     // Traverse left sub-tree first
     /* Here we traverse the left sub trees first (untill all left branches have been traversed through) because our
     BST is sorted with lower vals on the left. Therefore, because we want to check whether adjacent sorted vals are 
-    unique we first start at lowest ("left-lowest" branch) */
+    unique (best way to implement uniqueness check) we first start at lowest ("left-lowest") branch */
     count_unique_vals(root->left_arr[attribute_index], attribute_index, prev_item, cnt);
 
     /* Check current s.t. here:
@@ -958,10 +1006,15 @@ int count_tree_height(bst_node_t *root, int attribute_index){
     int left_height = count_tree_height(root->left_arr[attribute_index], attribute_index);
     int right_height = count_tree_height(root->right_arr[attribute_index], attribute_index);
 
+    // Height will be the largest sub-tree "route"
     return 1 + (left_height > right_height ? left_height : right_height);
 }
 
 void query_bst(bst_node_t *root, int attribute_index, char *query_str){
+    /* =============== Goal =============== 
+    Print succesful matches with queried item property
+    This is done through in order traversal as required */
+
     // End of the BST tree
     if (root == NULL){
         return;
@@ -1018,6 +1071,9 @@ void query_bst(bst_node_t *root, int attribute_index, char *query_str){
 }
 
 void find_uid_helper(bst_node_t **curr_ptr, item_t *item, bst_node_t **node, bst_node_t ***parent_ptr, int attribute_index){
+    /* =============== Goal =============== 
+    Find item with matching UID */
+
     // End of branch
     if (*curr_ptr == NULL){
         return;
